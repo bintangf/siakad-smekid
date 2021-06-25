@@ -9,7 +9,7 @@ class Mapel extends Model
 {
 	use SoftDeletes;
 
-    protected $table = 'Mapel';
+    protected $table = 'mapel';
     protected $primarykey ='id';
     protected $fillable = ['jurusan_id', 'nama_mapel', 'kelompok'];
 

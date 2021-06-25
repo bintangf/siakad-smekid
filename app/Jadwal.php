@@ -9,7 +9,7 @@ class Jadwal extends Model
 {
   use SoftDeletes;
 
-  protected $table = 'Jadwal';
+  protected $table = 'jadwal';
   protected $primarykey ='id';
   protected $fillable = ['hari_id', 'kelas_id', 'mapel_id', 'guru_id', 'jam_mulai', 'jam_selesai', 'ruang_id'];
 

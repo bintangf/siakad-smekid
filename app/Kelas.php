@@ -9,7 +9,7 @@ class Kelas extends Model
 {
     use SoftDeletes;
 
-    protected $table = 'Kelas';
+    protected $table = 'kelas';
     protected $primarykey ='id';
     protected $fillable = ['nama_kelas','jurusan_id','guru_id'];
 
