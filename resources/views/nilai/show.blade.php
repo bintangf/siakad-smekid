@@ -181,7 +181,6 @@ $(document).ready(function() {
     $(".btn_click").click(function(){
       var id = $(this).attr('data-id');
       var datas = JSON.parse($(".data_"+id).val());
-      console.log(datas);
       var nilai_id = $(".nilai_id_"+id).val();
       var ulha = $(".ulha_"+id).val();
       var ketrampilan = $(".ketrampilan_"+id).val();

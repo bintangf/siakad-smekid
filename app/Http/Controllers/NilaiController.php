@@ -38,11 +38,6 @@ class NilaiController extends Controller
         $guru = Guru::findorfail($request->guru_id);
         $cekJadwal = Jadwal::where('guru_id', $guru->id)->where('kelas_id', $request->kelas_id)->count();
         $walikelas = Kelas::where('id', $request->kelas_id)->first();
-        if($guru->id == $walikelas->guru_id){
-            $acc = 1;
-        }else{
-            $acc = 0;
-        }
         if ($cekJadwal >= 1) {
             Nilai::updateOrCreate(
                 [
@@ -58,13 +53,18 @@ class NilaiController extends Controller
                     'ketrampilan' => $request->ketrampilan,
                     'uts' => $request->uts,
                     'pat' => $request->pat,
-                    'acc' => $acc,
                 ]
             );
             return response()->json(['success' => 'Nilai ulangan siswa berhasil ditambahkan!']);
         } else {
             return response()->json(['error' => 'Maaf guru ini tidak mengajar kelas ini!']);
         }
+    }
+
+    public function acc(Request $request)
+    {
+        $acc = Nilai::findorfail($request->id)->update($request->all());
+        return response()->json(['success' => 'Nilai ulangan berhasil diacc!']);
     }
 
     public function view()
@@ -86,7 +86,15 @@ class NilaiController extends Controller
     public function view_detail($id)
     {
         $id = Crypt::decrypt($id);
-        $nilai = Nilai::where('kelas_id', $id[0])->where('guru_id', $id[1])->where('mapel_id', $id[2])->where('tahun_semester', $id[3])->get();
+        $nilai = Nilai::where('kelas_id', $id[0])
+                ->where('guru_id', $id[1])
+                ->where('mapel_id', $id[2])
+                ->where('tahun_semester', $id[3])
+                ->whereNotNull('ulha')
+                ->whereNotNull('uts')
+                ->whereNotNull('pat')
+                ->whereNotNull('ketrampilan')
+                ->get();
         return view('nilai.viewDetail', compact('nilai'));
     }
 
