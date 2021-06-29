@@ -44,6 +44,7 @@ Route::group(['middleware' => ['auth']], function(){
 	Route::get('/nilai/rapor', 'NilaiController@rapor')->name('rapor');
 	Route::get('/nilai/rapors/{id}', 'NilaiController@rapor_show')->name('rapor.show');
 	Route::get('/nilai/rapor/{id}', 'NilaiController@rapor_detail')->name('rapor.detail');
+	Route::post('/nilai/rapor/acc', 'NilaiController@acc')->name('rapor.acc');
 	Route::resource('/nilai', 'NilaiController');
 
 	//admin 

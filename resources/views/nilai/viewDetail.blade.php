@@ -40,13 +40,13 @@
                     <th style="width: 10%;">PAT</th>
                     @role('wali kelas')
                       @if(Auth::user()->guru->id == $nilai[0]->kelas->guru_id)
-                        <th style="width: 10%;">Aksi</th>
+                        <th style="width: 10%;">Acc</th>
                       @endif
                     @endrole
                 </thead>
                 <tbody>
-                  <tr>
                   @foreach ($nilai as $data)
+                  <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $data->siswa->nama_siswa }}</td>
                     <td>{{ $data->ulha }}</td>
@@ -59,9 +59,11 @@
                         @if ($data->acc == 1)
                           <i class="fas fa-check" style="font-weight:bold;"></i>
                         @else
-                          <button type="button" class="btn btn-default btn_click" data-id="{{$data->id}}">
+                        <form action="" method="post">
+                          <button type="button" class="btn btn-default btn_click" data-id="{{ $data->id }}">
                             <i class="nav-icon fas fa-save"></i>
                           </button>
+                        </form>
                         @endif
                       </td>
                       @endif
@@ -94,12 +96,12 @@ $(document).ready(function() {
       var acc = 1;
 
       $.ajax({
-        url: "{{ route('nilai.store') }}",
+        url: "{{ route('rapor.acc') }}",
         type: "POST",
         dataType: 'json',
         data  : {
           _token: '{{ csrf_token() }}',
-          id : nilai_id,
+          id : id,
           acc : acc,
         },
         success: function(data){

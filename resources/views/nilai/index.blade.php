@@ -27,10 +27,11 @@
                     <th>Aksi</th>
                 </thead>
                 <tbody>
+                @php $i=1; @endphp
                 @foreach ($kelas as $val => $data)
                 @foreach ($data as $v => $d)
                 <tr>
-                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $i++ }}</td>
                     <td>{{ $data[$v][0]->kelas->nama_kelas }}</td>
                     <td>{{ $d[0]->mapel->nama_mapel }}</td>
                     @can('master')
