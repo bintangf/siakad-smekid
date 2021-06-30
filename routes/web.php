@@ -85,7 +85,7 @@ Route::group(['middleware' => ['auth']], function(){
     	Route::get('/guru/mapel/{id}', 'GuruController@mapel')->name('guru.mapel');
     	Route::post('/guru/list_mapel', 'GuruController@getMapelGuru')->name('guru.listMapel');
     	//kelas
-		Route::resource('/kelas', 'kelasController');
+		Route::resource('/kelas', 'KelasController');
 		Route::get('/kelas/edit/json', 'KelasController@getEdit');
 		//jadwal
 	    Route::resource('/jadwal', 'JadwalController');
