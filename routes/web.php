@@ -59,9 +59,9 @@ Route::group(['middleware' => ['auth']], function(){
       	Route::get('/guru/restore/{id}', 'GuruController@restore')->name('guru.restore');
       	Route::delete('/guru/kill/{id}', 'GuruController@kill')->name('guru.kill');
 	    //kelas trash
-	    Route::get('/kelas/trash', 'kelasController@trash')->name('kelas.trash');
-      	Route::get('/kelas/restore/{id}', 'kelasController@restore')->name('kelas.restore');
-      	Route::delete('/kelas/kill/{id}', 'kelasController@kill')->name('kelas.kill');
+	    Route::get('/kelas/trash', 'KelasController@trash')->name('kelas.trash');
+      	Route::get('/kelas/restore/{id}', 'KelasController@restore')->name('kelas.restore');
+      	Route::delete('/kelas/kill/{id}', 'KelasController@kill')->name('kelas.kill');
       	//jadwal trash
 	    Route::get('/jadwal/trash', 'JadwalController@trash')->name('jadwal.trash');
 	    Route::get('/jadwal/restore/{id}', 'JadwalController@restore')->name('jadwal.restore');
