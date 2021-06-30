@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use PDF;
 use App\Nilai;
 use App\Kelas;
 use App\Guru;
@@ -55,7 +56,7 @@ class NilaiController extends Controller
                     'pat' => $request->pat,
                 ]
             );
-            return response()->json(['success' => 'Nilai ulangan siswa berhasil ditambahkan!']);
+            return response()->json(['success' => 'Nilai siswa berhasil ditambahkan!']);
         } else {
             return response()->json(['error' => 'Maaf guru ini tidak mengajar kelas ini!']);
         }
@@ -63,8 +64,17 @@ class NilaiController extends Controller
 
     public function acc(Request $request)
     {
-        $acc = Nilai::findorfail($request->id)->update($request->all());
-        return response()->json(['success' => 'Nilai ulangan berhasil diacc!']);
+        $cek = Nilai::where('id', $request->id)
+        ->whereNotNull('ulha')
+        ->whereNotNull('ketrampilan')
+        ->whereNotNull('uts')
+        ->whereNotNull('pat')->count();
+        if($cek == 1){
+            $acc = Nilai::findorfail($request->id)->update($request->all());
+            return response()->json(['success' => 'Nilai berhasil diacc!']);
+        }else{
+            return response()->json(['error' => 'Nilai belum terisi semua!'], 412);
+        }
     }
 
     public function view()
@@ -123,4 +133,20 @@ class NilaiController extends Controller
         $nilai = Nilai::orderBy('mapel_id')->where('kelas_id', $kelas->id)->where('siswa_id', $siswa->id)->get();
         return view('nilai.rapor.detail', compact('nilai', 'siswa', 'kelas'));
     }
+
+    public function raporpdf($id)
+    {
+        $id = Crypt::decrypt($id);
+        $siswa = Siswa::findorfail($id);
+        $kelas = Kelas::findorfail($siswa->kelas_id);
+        $nilai = Nilai::orderBy('mapel_id')->where('kelas_id', $kelas->id)->where('siswa_id', $siswa->id)->get();
+        $data = [
+            'siswa' => $siswa,
+            'kelas' => $kelas,
+            'nilai' => $nilai
+        ];
+        $html = view('nilai.rapor.export',$data);
+        $pdf = PDF::loadHtml($html);
+        return $pdf->download('Raport '.$siswa->nama_siswa.' '.date('d-m-Y').'.pdf');
+    } 
 }

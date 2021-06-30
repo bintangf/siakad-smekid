@@ -7,6 +7,7 @@
 @stop
 
 @section('plugins.Datatables', true)
+@section('plugins.datatablesPlugins', true)
 @section('plugins.sweetalert2', true)
 
 @section('content')
@@ -88,7 +89,10 @@
 
 $(document).ready(function() {
     $('#datatable').DataTable({
-        dom: 'Bfrtip'
+        dom: 'Bfrtip',
+        buttons: [
+                    'copy', 'csv', 'excel', 'pdf'
+                ]
     });
 
     $(".btn_click").click(function(){
@@ -96,7 +100,7 @@ $(document).ready(function() {
       var acc = 1;
 
       $.ajax({
-        url: "{{ route('rapor.acc') }}",
+        url: "{{ route('nilai.acc') }}",
         type: "POST",
         dataType: 'json',
         data  : {
@@ -107,7 +111,7 @@ $(document).ready(function() {
         success: function(data){
           Swal.fire(
             'Berhasil!',
-            "Nilai ulangan siswa berhasil diapprove!",
+            data.success,
             'success'
           ).then((result) => {
             location.reload();
@@ -116,7 +120,7 @@ $(document).ready(function() {
         error: function (data) {
           Swal.fire(
             'Error!',
-            "Errors 404!",
+            data.responseJSON.error,
             'error'
           )
         }

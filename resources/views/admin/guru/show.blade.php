@@ -7,6 +7,7 @@
 @stop
 
 @section('plugins.Datatables', true)
+@section('plugins.datatablesPlugins', true)
 @section('plugins.sweetalert2', true)
 
 @section('content')
@@ -16,7 +17,7 @@
     <div class="col-lg-12">
       <div class="card">
         <div class="card-body">
-          <a onclick="goBack()" class="btn btn-default btn-sm"><i class='nav-icon fas fa-arrow-left'></i> Kembali</a>
+          <a onclick="goBack()" class="btn btn-default btn-sm  mb-2"><i class='nav-icon fas fa-arrow-left'></i> Kembali</a>
             <div class="card-body table-responsive p-0">
               <table class="table table-hover text-nowrap" id="datatable">
                 <thead>
@@ -81,9 +82,12 @@ $(document).ready(function(){
     );
   @endif
 
-  $('#datatable').DataTable({
-    dom: 'Bfrtip'
-  });
+    $('#datatable').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+          'copy', 'csv', 'excel', 'pdf'
+        ]
+    });
 });
 
 </script>

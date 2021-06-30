@@ -7,6 +7,7 @@
 @stop
 
 @section('plugins.Datatables', true)
+@section('plugins.datatablesPlugins', true)
 @section('plugins.sweetalert2', true)
 
 @section('content')
@@ -16,7 +17,7 @@
     <div class="col-lg-12">
       <div class="card">
         <div class="card-body">
-            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" onclick="getCreateKelas()" data-target="#form-kelas">
+            <button type="button" class="btn btn-primary btn-sm mb-2" data-toggle="modal" onclick="getCreateKelas()" data-target="#form-kelas">
               <i class="nav-icon fas fa-folder-plus"></i> Tambah Kelas
             </button>
             <div class="card-body table-responsive p-0">
@@ -119,7 +120,7 @@
         <div class="row">
           <div class="col-md-12">
             <div class="card-body">
-              <table class="table table-bordered table-striped table-hover" width="100%">
+              <table class="table table-bordered table-striped table-hover" width="100%" id="tabel-siswa">
                 <thead>
                   <tr>
                     <th style="width: 20%;">No Induk Siswa</th>
@@ -127,8 +128,6 @@
                     <th style="width: 10%;">L/P</th>
                   </tr>
                 </thead>
-                <tbody id="data-siswa">
-                </tbody>
                 <tfoot>
                   <tr>
                     <th>No Induk Siswa</th>
@@ -140,10 +139,6 @@
             </div>
             <!-- /.col -->
           </div>
-        </div>
-        <div class="modal-footer justify-content-between">
-          <button type="button" class="btn btn-default" data-dismiss="modal"><i class="nav-icon fas fa-arrow-left"></i> &nbsp; Kembali</button>
-          <a id="link-siswa" href="#" class="btn btn-primary"><i class="nav-icon fas fa-download"></i> &nbsp; Download PDF</a>
         </div>
       </div>
     </div>
@@ -164,7 +159,7 @@
       <div class="row">
         <div class="col-md-12">
           <div class="card-body">
-            <table class="table table-bordered table-striped table-hover" width="100%">
+            <table class="table table-bordered table-striped table-hover" width="100%" id="tabel-jadwal">
               <thead>
                 <tr>
                   <th>Hari</th>
@@ -172,8 +167,6 @@
                   <th style="width: 20%;">Jam Pelajaran</th>
                 </tr>
               </thead>
-              <tbody id="data-jadwal">
-              </tbody>
               <tfoot>
                 <tr>
                   <th>Hari</th>
@@ -185,10 +178,6 @@
           </div>
           <!-- /.col -->
         </div>
-      </div>
-      <div class="modal-footer justify-content-between">
-        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="nav-icon fas fa-arrow-left"></i> &nbsp; Kembali</button>
-        <a id="link-jadwal" href="#" class="btn btn-primary"><i class="nav-icon fas fa-download"></i> &nbsp; Download PDF</a>
       </div>
     </div>
   </div>
@@ -257,64 +246,55 @@
 
     function getSubsSiswa(id){
       var parent = id;
-      $.ajax({
-        type:"GET",
-        data:"id="+parent,
-        dataType:"JSON",
-        url:"{{ url('/siswa/view/json') }}",
-        success:function(result){
-          // console.log(result);
-          var siswa = "";
-          if(result){
-            $.each(result,function(index, val){
-              $("#judul-siswa").text('View Data Siswa ' + val.kelas);
-              siswa += "<tr>";
-                siswa += "<td>"+val.no_induk+"</td>";
-                siswa += "<td>"+val.nama_siswa+"</td>";
-                siswa += "<td>"+val.jk+"</td>";
-              siswa+="</tr>";
-            });
-            $("#data-siswa").html(siswa);
-          }
-        },
-        error:function(){
-          toastr.error("Errors 404!");
-        },
-        complete:function(){
-        }
+      $('#tabel-siswa').DataTable( {
+          dom: 'Bfrtip',
+          searching: false,
+          paging: false,
+          destroy: true,
+          ajax: {
+              url: "{{ url('/siswa/view/json') }}?id="+parent,
+              dataSrc: ""
+          },
+          columns: [
+              { data: "no_induk" },
+              { data: "nama_siswa" },
+              { data: "jk" }
+          ],
+          buttons: [
+              'copy', 'csv', 'excel', 'pdf'
+          ]
       });
-      $("#link-siswa").attr("href", "#");
     }
 
     function getSubsJadwal(id){
       var parent = id;
-      $.ajax({
-        type:"GET",
-        data:"id="+parent,
-        dataType:"JSON",
-        url:"{{ url('/jadwal/view/json') }}",
-        success:function(result){
-          // console.log(result);
-          var jadwal = "";
-          if(result){
-            $.each(result,function(index, val){
-              $("#judul-jadwal").text('View Data Jadwal ' + val.kelas);
-              jadwal += "<tr>";
-                jadwal += "<td>"+val.hari+"</td>";
-                jadwal += "<td><h5 class='card-title'>"+val.mapel+"</h5><p class='card-text'><small class='text-muted'>"+val.guru+"</small></p></td>";
-                jadwal += "<td>"+val.jam_mulai+" - "+val.jam_selesai+"</td>";
-              jadwal+="</tr>";
-            });
-            $("#data-jadwal").html(jadwal);
-          }
-        },
-        error:function(){
-          toastr.error("Errors 404!");
-        },
-        complete:function(){
-        }
-      });
-      $("#link-jadwal").attr("href", "#");
+      $('#tabel-jadwal').DataTable( {
+          dom: 'Bfrtip',
+          searching: false,
+          paging: false,
+          destroy: true,
+          ajax: {
+              url: "{{ url('/jadwal/view/json') }}?id="+parent,
+              dataSrc: ""
+          },
+          columns: [
+              { data: "hari" },
+              { data: null,
+                render: function ( data, type, row ) {
+                    return "<h5 class='card-title'>"+data.mapel+"</h5>"+
+                    "<p class='card-text'><small class='text-muted'> - "+data.guru+"</small></p>";
+                } 
+              },
+              { data: null,
+                render: function ( data, type, row ) {
+                    return data.jam_mulai+' - '+data.jam_selesai;
+                } 
+              },
+          ],
+          buttons: [
+              'copy', 'csv', 'excel', 'pdf'
+          ]
+      });;
     }
 
     $(document).ready(function() {
@@ -327,11 +307,9 @@
         );
       @endif
 
-        $('#datatable').DataTable({
-            dom: 'Bfrtip'
-        });
-
-    } );
+      $('#datatable').DataTable({
+      });
+    });
 
 </script>
 @stop

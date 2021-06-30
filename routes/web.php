@@ -41,10 +41,11 @@ Route::group(['middleware' => ['auth']], function(){
 	//nilai
 	Route::get('/nilai/view', 'NilaiController@view')->name('nilai');
 	Route::get('/nilai/view/{id}', 'NilaiController@view_detail')->name('nilai.detail');
+	Route::post('/nilai/acc', 'NilaiController@acc')->name('nilai.acc');
 	Route::get('/nilai/rapor', 'NilaiController@rapor')->name('rapor');
-	Route::get('/nilai/rapors/{id}', 'NilaiController@rapor_show')->name('rapor.show');
-	Route::get('/nilai/rapor/{id}', 'NilaiController@rapor_detail')->name('rapor.detail');
-	Route::post('/nilai/rapor/acc', 'NilaiController@acc')->name('rapor.acc');
+	Route::get('/nilai/rapor/{id}', 'NilaiController@rapor_show')->name('rapor.show');
+	Route::get('/nilai/rapor/detail/{id}', 'NilaiController@rapor_detail')->name('rapor.detail');
+	Route::get('/nilai/rapor/pdf/{id}', 'NilaiController@raporpdf')->name('rapor.pdf');
 	Route::resource('/nilai', 'NilaiController');
 
 	//admin 

@@ -1,28 +1,15 @@
-@extends('adminlte::page')
 
-@section('title', 'Nilai Rapor')
-
-@section('content_header')
-<h1>Nilai Rapor {{ $kelas->nama_kelas }}</h1>
-@stop
-
-@section('plugins.Datatables', true)
-
-@section('content')
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 
 <div class="col-md-12">
     <!-- general form elements -->
     <div class="card card-primary">
-      <div class="card-header">
-        <div class="row">
-        <h3 class="card-title col-md-10">Show Rapot</h3>
-        <a href="{{ route('rapor.pdf', Crypt::encrypt($siswa->id)) }}" class="btn btn-outline-light my-2 my-sm-0 col-md-2">
-          <i class="nav-icon fas fa-download"></i> &nbsp; Generate PDF</a>
-        </div>
-      </div>
       <!-- /.card-header -->
         <div class="card-body">
-          <div class="row">
+          <h1>Nilai Rapor {{ $kelas->nama_kelas }}</h1>
+          <br>
             <div class="col-md-12">
                 <table class="table" style="margin-top: -10px;">
                     <tr>
@@ -124,25 +111,10 @@
                     </tbody>
                 </table>
             </div>
-          </div>
         </div>
         <!-- /.card-body -->
     </div>
     <!-- /.card -->
 </div>
-@stop
 
-@section('css')
-<link rel="stylesheet" href="/css/admin_custom.css">
-@stop
-
-@section('js')
-<script>
-
-$(document).ready(function() {
-    $('#datatable').DataTable({
-    });
-});
-</script>
-@stop
 
