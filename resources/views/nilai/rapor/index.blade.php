@@ -21,15 +21,19 @@
                 <tr>
                   <th>No.</th>
                   <th>Nama Kelas</th>
+                  <th>Tahun Semester</th>
                   <th>Aksi</th>
               </thead>
               <tbody>
-                @foreach ($kelas as $data)
+                @foreach ($kelas as $kel)
+                @foreach ($kel as $val => $data)
                   <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $data->nama_kelas }}</td>
-                    <td><a href="{{ route('rapor.show', Crypt::encrypt($data->id)) }}" class="btn btn-info btn-sm"><i class="nav-icon fas fa-search-plus"></i> &nbsp; Details</a></td>
+                    <td>{{ $data[0]->kelas->nama_kelas }}</td>
+                    <td>{{ $val }}</td>
+                    <td><a href="{{ route('rapor.show', Crypt::encrypt([$data[0]->kelas_id, $val])) }}" class="btn btn-info btn-sm"><i class="nav-icon fas fa-search-plus"></i> &nbsp; Details</a></td>
                   </tr>
+                @endforeach
                 @endforeach
               </tbody>
             </table>

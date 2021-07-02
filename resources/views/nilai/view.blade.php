@@ -29,7 +29,8 @@
                 </thead>
                 <tbody>
                 @php $i=1; @endphp
-                @foreach ($kelas as $val => $data)
+                @foreach ($kelas as $kel)
+                @foreach ($kel as $val => $data)
                   @foreach ($data as $v => $d)
                   <tr>
                       <td>{{ $i++ }}</td>
@@ -50,6 +51,7 @@
                       @endrole
                   </tr>
                   @endforeach
+                @endforeach
                 @endforeach
                 </tbody>
               </table>

@@ -24,7 +24,12 @@ class Siswa extends Model
 
     public function nilai($id)
     {
-        $nilai = Nilai::where('siswa_id', $id[0])->where('kelas_id', $id[1])->where('guru_id', $id[2])->where('mapel_id', $id[3])->first();
+        $nilai = Nilai::where('siswa_id', $id[0])
+                    ->where('kelas_id', $id[1])
+                    ->where('guru_id', $id[2])
+                    ->where('mapel_id', $id[3])
+                    ->where('tahun_semester', $id[4])
+                    ->first();
         return $nilai;
     }
 }

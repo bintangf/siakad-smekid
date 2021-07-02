@@ -3,7 +3,7 @@
 @section('title', 'Nilai Rapor')
 
 @section('content_header')
-<h1>Nilai Rapor {{ $kelas->nama_kelas }}</h1>
+<h1>Nilai Rapor {{ $kelas->nama_kelas }} - {{ $tahun_semester }}</h1>
 @stop
 
 @section('plugins.Datatables', true)

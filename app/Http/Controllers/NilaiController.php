@@ -89,7 +89,8 @@ class NilaiController extends Controller
         }else{
             $jadwal = Nilai::where('guru_id', Auth::user()->guru->id)->orderBy('kelas_id')->get();
         }
-        $kelas = $jadwal->groupBy(['kelas_id', 'mapel_id']);
+        $kelas = $jadwal->groupBy(['tahun_semester', 'kelas_id', 'mapel_id']);
+        //dd($kelas);
         return view('nilai.view', compact('kelas'));
     }
 
@@ -110,19 +111,21 @@ class NilaiController extends Controller
         if(auth()->user()->can('master') == true){
             $kelas = Kelas::orderBy('nama_kelas')->get();
         }else{
-            $kelas = Kelas::where('guru_id', Auth::user()->guru->id)->orderBy('nama_kelas')->get();
+            $kelas = Nilai::where('guru_id', Auth::user()->guru->id)->get();
+            $kelas = $kelas->groupBy(['kelas_id', 'tahun_semester']);
         }
+        //dd($kelas);
         return view('nilai.rapor.index', compact('kelas'));
     }
 
     public function rapor_show($id)
     {
         $id = Crypt::decrypt($id);
-        $kelas = Kelas::findorfail($id);
-        $siswa = Nilai::orderBy('siswa_id')->where('kelas_id', $id)->get();
+        $kelas = Kelas::findorfail($id[0]);
+        $siswa = Nilai::orderBy('siswa_id')->where('kelas_id', $id[0])->where('tahun_semester', $id[1])->get();
         $siswa = $siswa->groupBy(['siswa_id']);
-        //dd($siswa);
-        return view('nilai.rapor.show', compact('kelas', 'siswa'));
+        $tahun_semester = $id[1];
+        return view('nilai.rapor.show', compact('kelas', 'siswa', 'tahun_semester'));
     }
 
     public function rapor_detail($id)
