@@ -11,10 +11,10 @@ class Jurusan extends Model
     protected $fillable = ['nama'];
 
 	public function mapels() { 
-	    return $this->hasMany('App\Mapel'); 
+	    return $this->hasMany('App\Mapel')->withTrashed();
 	}
 	public function kelas() { 
-	    return $this->hasMany('App\Kelas'); 
+	    return $this->hasMany('App\Kelas')->withTrashed();
 	}
 
 }

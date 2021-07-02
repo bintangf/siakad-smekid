@@ -15,21 +15,21 @@ class Jadwal extends Model
 
   public function hari()
   {
-    return $this->belongsTo('App\Hari')->withDefault();
+    return $this->belongsTo('App\Hari');
   }
 
   public function kelas()
   {
-    return $this->belongsTo('App\Kelas')->withDefault();
+    return $this->belongsTo('App\Kelas')->withTrashed();
   }
 
   public function mapel()
   {
-    return $this->belongsTo('App\Mapel')->withDefault();
+    return $this->belongsTo('App\Mapel')->withTrashed();
   }
 
   public function guru()
   {
-    return $this->belongsTo('App\Guru')->withDefault();
+    return $this->belongsTo('App\Guru')->withTrashed();
   }
 }

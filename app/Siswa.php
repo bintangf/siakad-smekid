@@ -19,7 +19,7 @@ class Siswa extends Model
     }
     public function kelas()
     {
-        return $this->belongsTo('App\Kelas');
+        return $this->belongsTo('App\Kelas')->withTrashed();
     }
 
     public function nilai($id)

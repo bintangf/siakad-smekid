@@ -18,6 +18,6 @@ class Mapel extends Model
 	}
 
 	public function guru() { 
-	    return $this->belongsToMany('App\Guru'); 
+	    return $this->belongsToMany('App\Guru')->withTrashed();
 	}
 }

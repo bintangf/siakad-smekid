@@ -14,13 +14,13 @@ class Guru extends Model
     protected $fillable = ['user_id', 'nip', 'nama_guru', 'jk', 'telp', 'tmp_lahir', 'tgl_lahir'];
 
 	public function kelas() { 
-	    return $this->hasOne('App\Kelas'); 
+	    return $this->hasOne('App\Kelas')->withTrashed();
 	}
     public function user()
     {
         return $this->belongsTo('App\User');
     }
 	public function mapel() { 
-	    return $this->belongsToMany('App\Mapel'); 
+	    return $this->belongsToMany('App\Mapel')->withTrashed();
 	}
 }

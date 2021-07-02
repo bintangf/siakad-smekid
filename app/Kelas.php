@@ -17,6 +17,6 @@ class Kelas extends Model
 	    return $this->belongsTo('App\Jurusan'); 
 	}
 	public function guru() { 
-	    return $this->belongsTo('App\Guru'); 
+	    return $this->belongsTo('App\Guru')->withTrashed();
 	}
 }
