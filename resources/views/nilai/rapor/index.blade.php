@@ -25,10 +25,11 @@
                   <th>Aksi</th>
               </thead>
               <tbody>
+                @php $i=1; @endphp
                 @foreach ($kelas as $kel)
                 @foreach ($kel as $val => $data)
                   <tr>
-                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $i++ }}</td>
                     <td>{{ $data[0]->kelas->nama_kelas }}</td>
                     <td>{{ $val }}</td>
                     <td><a href="{{ route('rapor.show', Crypt::encrypt([$data[0]->kelas_id, $val])) }}" class="btn btn-info btn-sm"><i class="nav-icon fas fa-search-plus"></i> &nbsp; Details</a></td>

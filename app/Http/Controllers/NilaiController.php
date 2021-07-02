@@ -109,7 +109,8 @@ class NilaiController extends Controller
     public function rapor()
     {
         if(auth()->user()->can('master') == true){
-            $kelas = Kelas::orderBy('nama_kelas')->get();
+            $kelas = Nilai::get();
+            $kelas = $kelas->groupBy(['kelas_id', 'tahun_semester']);
         }else{
             $kelas = Nilai::where('guru_id', Auth::user()->guru->id)->get();
             $kelas = $kelas->groupBy(['kelas_id', 'tahun_semester']);
