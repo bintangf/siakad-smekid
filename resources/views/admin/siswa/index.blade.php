@@ -19,6 +19,9 @@
             <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target=".tambah-siswa">
               <i class="nav-icon fas fa-folder-plus"></i> Tambah Siswa
             </button>
+            <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target=".import-siswa">
+              <i class="nav-icon fas fa-file-import"></i> Import Siswa
+            </button>
             <div class="card-body table-responsive p-0">
               <table class="table table-hover text-nowrap" id="datatable">
                 <thead>
@@ -119,6 +122,45 @@
       </div>
     </div>
   </div>
+
+<!-- import siswa -->
+<div class="modal fade bd-example-modal-lg import-siswa" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+      <div class="modal-header">
+          <h4 class="modal-title">Import Data Siswa</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <div class="modal-body">
+          <form action="{{ route('siswa.import_excel') }}" method="post" enctype="multipart/form-data">
+            @csrf
+            <div class="card card-outline card-primary">
+              <div class="card-header">
+                <h5 class="modal-title">Petunjuk :</h5>
+              </div>
+              <div class="card-body">
+                <ul>
+                  <li>rows 1 = No Induk Siswa</li>
+                  <li>rows 2 = Nama Siswa</li>
+                  <li>rows 3 = Jenis Kelamin(L/P)</li>
+                  <li>rows 4 = Nama Kelas</li>
+                </ul>
+              </div>
+            </div>
+            <label>Pilih file excel</label>
+              <div class="form-group">
+                <input type="file" name="file" required="required">
+              </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary">Import</button>
+            </div>
+          </form>
+      </div>
+      </div>
+    </div>
+</div>
 
 @stop
 

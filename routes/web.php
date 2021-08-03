@@ -84,6 +84,7 @@ Route::group(['middleware' => ['auth']], function(){
 		Route::resource('/guru', 'GuruController');
     	Route::get('/guru/mapel/{id}', 'GuruController@mapel')->name('guru.mapel');
     	Route::post('/guru/list_mapel', 'GuruController@getMapelGuru')->name('guru.listMapel');
+    	Route::post('/guru/import_excel', 'GuruController@import_excel')->name('guru.import_excel');
     	//kelas
 		Route::resource('/kelas', 'KelasController');
 		Route::get('/kelas/edit/json', 'KelasController@getEdit');
@@ -94,6 +95,7 @@ Route::group(['middleware' => ['auth']], function(){
 	    Route::resource('/siswa', 'SiswaController');
     	Route::get('/siswa/view/json', 'SiswaController@view');
 	    Route::get('/siswa/kelas/{id}', 'SiswaController@kelas')->name('siswa.kelas');
+	    Route::post('/siswa/import_excel', 'SiswaController@import_excel')->name('siswa.import_excel');
 	    //user
 	    Route::resource('/user', 'UserController');
 	});

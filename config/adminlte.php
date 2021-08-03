@@ -382,7 +382,8 @@ return [
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Plugins-Configuration
     |
     */
-
+    
+// matikan plugin ketika menjalankan composer//
     'plugins' => [
         'Datatables' => [
             'active' => false,

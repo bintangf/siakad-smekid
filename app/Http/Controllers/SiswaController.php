@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Siswa;
 use App\Kelas;
 use Illuminate\Http\Request;
+use App\Imports\SiswaImport;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Crypt;
 
 class SiswaController extends Controller
@@ -202,5 +204,17 @@ class SiswaController extends Controller
         $siswas = Siswa::where('kelas_id', $id)->OrderBy('nama_siswa', 'asc')->get();
         $kelas = Kelas::findorfail($id);
         return view('admin.siswa.show', compact('siswas', 'kelas'));
+    }
+
+    public function import_excel(Request $request)
+    {
+        $this->validate($request, [
+            'file' => 'required|mimes:csv,xls,xlsx'
+        ]);
+        $file = $request->file('file');
+        $nama_file = rand() . $file->getClientOriginalName();
+        $file->move('file_siswa', $nama_file);
+        Excel::import(new SiswaImport, public_path('/file_siswa/' . $nama_file));
+        return redirect()->back()->with('success', 'Data Siswa Berhasil Diimport!');
     }
 }
