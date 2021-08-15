@@ -383,7 +383,6 @@ return [
     |
     */
     
-// matikan plugin ketika menjalankan composer//
     'plugins' => [
         'Datatables' => [
             'active' => false,
@@ -391,17 +390,17 @@ return [
                 [
                     'type' => 'js',
                     'asset' => false,
-                    'location' => asset('vendor/datatables/js/jquery.dataTables.min.js'),
+                    'location' => Config('app.asset').'vendor/datatables/js/jquery.dataTables.min.js',
                 ],
                 [
                     'type' => 'js',
                     'asset' => false,
-                    'location' => asset('vendor/datatables/js/dataTables.bootstrap4.min.js'),
+                    'location' => Config('app.asset').'vendor/datatables/js/dataTables.bootstrap4.min.js',
                 ],
                 [
                     'type' => 'css',
                     'asset' => false,
-                    'location' => asset('vendor/datatables/css/dataTables.bootstrap4.min.css'),
+                    'location' => Config('app.asset').'vendor/datatables/css/dataTables.bootstrap4.min.css',
                 ],
             ],
         ],
@@ -411,37 +410,37 @@ return [
                 [
                     'type' => 'js',
                     'asset' => false,
-                    'location' => asset('vendor/datatables-plugins/buttons/js/dataTables.buttons.min.js'),
+                    'location' => Config('app.asset').'vendor/datatables-plugins/buttons/js/dataTables.buttons.min.js',
                 ],
                 [
                     'type' => 'js',
                     'asset' => false,
-                    'location' => asset('vendor/datatables-plugins/jszip/jszip.min.js'),
+                    'location' => Config('app.asset').'vendor/datatables-plugins/jszip/jszip.min.js',
                 ],
                 [
                     'type' => 'js',
                     'asset' => false,
-                    'location' => asset('vendor/datatables-plugins/pdfmake/pdfmake.min.js'),
+                    'location' => Config('app.asset').'vendor/datatables-plugins/pdfmake/pdfmake.min.js',
                 ],
                 [
                     'type' => 'js',
                     'asset' => false,
-                    'location' => asset('vendor/datatables-plugins/pdfmake/vfs_fonts.js'),
+                    'location' => Config('app.asset').'vendor/datatables-plugins/pdfmake/vfs_fonts.js',
                 ],
                 [
                     'type' => 'js',
                     'asset' => false,
-                    'location' =>asset('vendor/datatables-plugins/buttons/js/buttons.html5.min.js'),
+                    'location' =>Config('app.asset').'vendor/datatables-plugins/buttons/js/buttons.html5.min.js',
                 ],
                 [
                     'type' => 'js',
                     'asset' => false,
-                    'location' =>asset('vendor/datatables-plugins/buttons/js/buttons.bootstrap4.min.js'),
+                    'location' =>Config('app.asset').'vendor/datatables-plugins/buttons/js/buttons.bootstrap4.min.js',
                 ],
                 [
                     'type' => 'css',
                     'asset' => false,
-                    'location' => asset('vendor/datatables-plugins/buttons/css/buttons.bootstrap4.min.css'),
+                    'location' => Config('app.asset').'vendor/datatables-plugins/buttons/css/buttons.bootstrap4.min.css',
                 ],
             ],
         ],
@@ -451,12 +450,12 @@ return [
                 [
                     'type' => 'js',
                     'asset' => false,
-                    'location' => asset('vendor/sweetalert2/sweetalert2.min.js'),
+                    'location' => Config('app.asset').'vendor/sweetalert2/sweetalert2.min.js',
                 ],
                 [
                     'type' => 'css',
                     'asset' => false,
-                    'location' => asset('vendor/sweetalert2/sweetalert2.min.css'),
+                    'location' => Config('app.asset').'vendor/sweetalert2/sweetalert2.min.css',
                 ],
             ],
         ],
