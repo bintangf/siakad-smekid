@@ -22,20 +22,23 @@ class RolesAndPermissionsSeeder extends Seeder
         Permission::create(['name' => 'rapor']);
         Permission::create(['name' => 'lihat nilai']);
         Permission::create(['name' => 'input nilai']);
+        Permission::create(['name' => 'keuangan']);
+        Permission::create(['name' => 'laporan keuangan']);
         // create roles and assign created permissions
 
-        // this can be done as separate statements
         $role = Role::create(['name' => 'guru']);
         $role->givePermissionTo(['input nilai', 'lihat nilai']);
 
-        // or may be done by chaining
         $role = Role::create(['name' => 'wali kelas'])
             ->givePermissionTo(['lihat nilai', 'rapor']);
 
+        $role = Role::create(['name' => 'bendahara'])
+            ->givePermissionTo(['keuangan', 'laporan keuangan']);
+
         $role = Role::create(['name' => 'operator'])
-            ->givePermissionTo(['lihat nilai', 'rapor', 'master']);
+            ->givePermissionTo(['lihat nilai', 'rapor', 'master', 'laporan keuangan']);
 
         $role = Role::create(['name' => 'admin'])
-            ->givePermissionTo(['lihat nilai', 'rapor', 'master', 'trash']);
+            ->givePermissionTo(['lihat nilai', 'rapor', 'master', 'trash', 'laporan keuangan']);
     }
 }
