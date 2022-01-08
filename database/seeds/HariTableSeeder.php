@@ -32,5 +32,9 @@ class HariTableSeeder extends Seeder
             'id' => 5,
             'nama_hari' => "Jum'at",
         ]);
+		Hari::create([
+            'id' => 6,
+            'nama_hari' => "Sabtu",
+        ]);
     }
 }
