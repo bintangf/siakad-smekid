@@ -70,6 +70,10 @@ Route::group(['middleware' => ['auth']], function(){
      	Route::get('/siswa/trash', 'SiswaController@trash')->name('siswa.trash');
      	Route::get('/siswa/restore/{id}', 'SiswaController@restore')->name('siswa.restore');
      	Route::delete('/siswa/kill/{id}', 'SiswaController@kill')->name('siswa.kill');
+		//tagihan trash
+		Route::get('/tagihan/trash', 'TagihanController@trash')->name('tagihan.trash');
+		Route::get('/tagihan/restore/{id}', 'TagihanController@restore')->name('tagihan.restore');
+		Route::delete('/tagihan/kill/{id}', 'TagihanController@kill')->name('tagihan.kill');
      	//user trash
      	Route::get('/user/trash', 'UserController@trash')->name('user.trash');
     	Route::get('/user/restore/{id}', 'UserController@restore')->name('user.restore');
@@ -96,6 +100,9 @@ Route::group(['middleware' => ['auth']], function(){
     	Route::get('/siswa/view/json', 'SiswaController@view');
 	    Route::get('/siswa/kelas/{id}', 'SiswaController@kelas')->name('siswa.kelas');
 	    Route::post('/siswa/import_excel', 'SiswaController@import_excel')->name('siswa.import_excel');
+    	//tagihan
+		Route::resource('/tagihan', 'TagihanController');
+		Route::get('/tagihan/edit/json', 'TagihanController@getEdit');
 	    //user
 	    Route::resource('/user', 'UserController');
 	});

@@ -309,6 +309,11 @@ return [
                     'icon' => 'fas fa-fw fa-book',
                 ],
                 [
+                    'text' => 'Trash Tagihan',
+                    'url'  => 'tagihan/trash',
+                    'icon' => 'fas fa-fw fa-file-invoice',
+                ],
+                [
                     'text' => 'Trash User',
                     'url'  => 'user/trash',
                     'icon' => 'fas fa-fw fa-user-plus',
@@ -338,6 +343,25 @@ return [
                     'icon' => 'fas fa-fw fa-file-export',
                     'can'  => 'rapor',
                 ],
+            ],
+        ],
+        [
+            'text'    => 'Keuangan',
+            'icon'    => 'fas fa-fw fa-money-bill',
+            'can'     => 'keuangan',
+            'submenu' => [
+                [
+                    'text' => 'Tagihan',
+                    'url'  => 'tagihan',
+                    'icon' => 'fas fa-fw fa-file-invoice',
+                    'can'  => 'keuangan',
+                ],
+                [
+                    'text' => 'Pembayaran',
+                    'url'  => 'pembayaran',
+                    'icon' => 'fas fa-fw fa-cash-register',
+                    'can'  => 'keuangan',
+                ]
             ],
         ],
         ['header' => 'Setting Akun'],
