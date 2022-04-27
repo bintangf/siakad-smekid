@@ -190,6 +190,7 @@ class SiswaController extends Controller
         foreach ($siswa as $val) {
             $newForm[] = array(
                 'kelas' => $val->kelas->nama_kelas,
+                'siswa_id' => $val->id,
                 'no_induk' => $val->no_induk,
                 'nama_siswa' => $val->nama_siswa,
                 'jk' => $val->jk

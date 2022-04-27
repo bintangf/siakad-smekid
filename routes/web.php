@@ -102,7 +102,11 @@ Route::group(['middleware' => ['auth']], function(){
 	    Route::post('/siswa/import_excel', 'SiswaController@import_excel')->name('siswa.import_excel');
     	//tagihan
 		Route::resource('/tagihan', 'TagihanController');
+	    Route::post('/tagihan/tagih', 'TagihanController@tagih')->name('tagihan.tagih');
 		Route::get('/tagihan/edit/json', 'TagihanController@getEdit');
+    	//pembayaran
+		Route::resource('/pembayaran', 'PembayaranController');
+    	Route::get('/pembayaran/view/json', 'PembayaranController@view');
 	    //user
 	    Route::resource('/user', 'UserController');
 	});

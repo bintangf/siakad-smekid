@@ -33,24 +33,26 @@
                 </thead>
                 <tbody>
                   @foreach ($tagihan as $tag)
+                  
                   <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $tag->nama }}</td>
-                    <td>{{ $tag->jumlah }}</td>
+                    <td>@currency ($tag->jumlah)</td>
                     @if (  $tag->keterangan == null)
                       <td>-</td>
                     @else
                       <td>{{ $tag->keterangan }}</td>
                     @endif
                     <td>
-                        <form action="{{ route('tagihan.destroy', $tag->id) }}" method="post">
-                            @csrf
-                            @method('delete')
-                            <button type="button" class="btn btn-success btn-sm" onclick="getEditTagihan({{$tag->id}})" data-toggle="modal" data-target="#form-tagihan">
-                              <i class="nav-icon fas fa-edit"></i> &nbsp; Edit
-                            </button>
-                            <button class="btn btn-danger btn-sm"><i class="nav-icon fas fa-trash-alt"></i> &nbsp; Hapus</button>
-                        </form>
+                      <form action="{{ route('tagihan.destroy', $tag->id) }}" method="post">@csrf @method('delete')
+                        <button type="button" class="btn btn-info btn-sm" onclick="tagih({{$tag->id}})" data-toggle="modal" data-target="#form-buat-tagihan">
+                          <i class="nav-icon fas fa-check"></i> &nbsp; Tagih
+                        </button>
+                        <button type="button" class="btn btn-success btn-sm" onclick="getEditTagihan({{$tag->id}})" data-toggle="modal" data-target="#form-tagihan">
+                          <i class="nav-icon fas fa-edit"></i> &nbsp; Edit
+                        </button>
+                        <button class="btn btn-danger btn-sm"><i class="nav-icon fas fa-trash-alt"></i> &nbsp; Hapus</button>
+                      </form>
                     </td>
                   </tr>
                   @endforeach
@@ -91,6 +93,49 @@
               <div class="form-group" id="form_keterangan">
                 <label for="keterangan">Keterangan</label>
                 <input type='text' id="keterangan" name="keterangan" class="form-control @error('keterangan') is-invalid @enderror" placeholder="{{ __('Khusus untuk siswa kelas XII') }}">
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-default" data-dismiss="modal"><i class='nav-icon fas fa-arrow-left'></i> &nbsp; Kembali</button>
+              <button type="submit" class="btn btn-primary simpan"><i class="nav-icon fas fa-save"></i> &nbsp; Tambahkan</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- modal form buat tagihan -->
+<div class="modal fade bd-example-modal-md" id="form-buat-tagihan" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+          <h4 class="modal-title" id="judul">Tagihkan Kepada</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <div class="modal-body">
+        <form action="{{ route('tagihan.tagih') }}" method="post">
+          @csrf
+          <div class="row">
+            <div class="col-md-12">
+              <input type="hidden" id="tagihan_id" name="tagihan_id" value="{{ $tag->id }}">
+              <div class="form-group">
+                <label for="kelas_id">Kelas</label>
+                <select id="kelas_id" name="kelas_id" class="select2bs4 form-control @error('kelas_id') is-invalid @enderror">
+                  <option value="">-- Pilih Kelas --</option>
+                  @foreach ($kelas as $kel)
+                    <option value="{{ $kel->id }}">{{ $kel->nama_kelas }}</option>
+                  @endforeach
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="siswa_id">Siswa</label>
+                <select id="siswa_id" name="siswa_id" class="select2bs4 form-control @error('siswa_id') is-invalid @enderror">
+                  <option value="">-- Pilih Siswa --</option>
+                </select>
               </div>
             </div>
           </div>
@@ -147,7 +192,35 @@
       });
     }
 
+    function tagih(id){
+      $('#tagihan_id').val(id);
+    }
+
     $(document).ready(function() {
+
+      $("#kelas_id").change(function () {
+          var kelas_id = $(this).val();
+          $('#siswa_id').find('option').not(':first').remove();
+          // AJAX request
+          $.ajax({
+            url: "{{ url('/siswa/view/json') }}?id=" + kelas_id,
+            type: "get",
+            dataType: "json",
+            success: function (response) {
+              var len = 0;
+              if (response != null) {
+                len = response.length;
+              }
+              if (len > 0) {
+                $("#siswa_id").append('<option value="kelas.' + kelas_id + '">Semua Siswa</option>');
+                for (var i = 0; i < len; i++) {
+                  var option = "<option value='" + response[i].siswa_id + "'>" + response[i].nama_siswa + "</option>";
+                  $("#siswa_id").append(option);
+                }
+              }
+            },
+          });
+        });
 
       @if(Session::has('success'))
         Swal.fire(

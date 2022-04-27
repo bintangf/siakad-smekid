@@ -250,11 +250,13 @@ return [
                     'text' => 'Data Jadwal',
                     'url'  => 'jadwal',
                     'icon' => 'fas fa-fw fa-calendar-alt',
+                    'active' => ['jadwal*']
                 ],
                 [
                     'text' => 'Data Guru',
                     'url'  => 'guru',
                     'icon' => 'fas fa-fw fa-users',
+                    'active' => ['guru*']
                 ],
                 [
                     'text' => 'Data Kelas',
@@ -265,6 +267,7 @@ return [
                     'text' => 'Data Siswa',
                     'url'  => 'siswa',
                     'icon' => 'fas fa-fw fa-users',
+                    'active' => ['siswa*']
                 ],
                 [
                     'text' => 'Data Mata Pelajaran',
@@ -275,6 +278,7 @@ return [
                     'text' => 'Data User',
                     'url'  => 'user',
                     'icon' => 'fas fa-fw fa-user-plus',
+                    'active' => ['user*']
                 ],
             ],
         ],

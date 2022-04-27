@@ -22,6 +22,11 @@ class Siswa extends Model
         return $this->belongsTo('App\Kelas')->withTrashed();
     }
 
+	public function detailTagihan()
+	{
+		return $this->hasMany('App\detailTagihan', 'siswa_id');
+	}
+    
     public function nilai($id)
     {
         $nilai = Nilai::where('siswa_id', $id[0])

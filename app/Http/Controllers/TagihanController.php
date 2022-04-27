@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Kelas;
+use App\Siswa;
 use App\Tagihan;
+use App\detailTagihan;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 
@@ -15,9 +19,10 @@ class TagihanController extends Controller
      */
     public function index()
     {
+        $kelas = Kelas::OrderBy('nama_kelas', 'asc')->get();
         $tagihan = Tagihan::all();
 
-        return view('admin.tagihan.index', compact('tagihan'));
+        return view('admin.tagihan.index', compact('tagihan', 'kelas'));
     }
 
     /**
@@ -61,8 +66,8 @@ class TagihanController extends Controller
                 'jumlah' => $request->jumlah,
                 'keterangan' => $request->keterangan,
             ]
-        );  
-        
+        );
+
         return redirect()->back()->with('success', 'Data tagihan berhasil diperbarui!');
     }
 
@@ -117,7 +122,7 @@ class TagihanController extends Controller
     public function trash()
     {
         $tagihan = Tagihan::onlyTrashed()->get();
-        
+
         return view('admin.tagihan.trash', compact('tagihan'));
     }
 
@@ -150,5 +155,29 @@ class TagihanController extends Controller
             );
         }
         return response()->json($newForm);
+    }
+
+    public function tagih(Request $request)
+    {
+        if (Str::contains($request->siswa_id, 'kelas')) {
+            $siswas = Siswa::where('kelas_id', explode(".", $request->siswa_id)[1])->get();
+            foreach ($siswas as $siswa) {
+                detailTagihan::create(
+                    [
+                        'siswa_id' => $siswa->id,
+                        'tagihan_id' => $request->tagihan_id
+                    ]
+                );
+            }
+        } else {
+            detailTagihan::create(
+                [
+                    'siswa_id' => $request->siswa_id,
+                    'tagihan_id' => $request->tagihan_id
+                ]
+            );
+        }
+
+        return redirect()->back()->with('success', 'Berhasil di tagihkan!');
     }
 }

@@ -31,7 +31,7 @@
                           <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $tag->nama }}</td>
-                            <td>{{ $tag->jumlah }}</td>
+                            <td>@currency ($tag->jumlah)</td>
                             @if (  $tag->keterangan == null)
                               <td>-</td>
                             @else
