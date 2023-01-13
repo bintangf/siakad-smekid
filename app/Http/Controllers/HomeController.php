@@ -2,20 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Jadwal;
-use App\Guru;
-use App\Kehadiran;
-use App\Kelas;
-use App\Siswa;
-use App\Mapel;
-use App\User;
-use App\Jurusan;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
+use App\Models\Guru;
+use App\Models\Jadwal;
+use App\Models\Jurusan;
+use App\Models\Kelas;
+use App\Models\Mapel;
+use App\Models\Siswa;
+use App\Models\User;
 
 class HomeController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('auth');
@@ -32,6 +28,7 @@ class HomeController extends Controller
         $mapel = Mapel::count();
         $user = User::count();
         $jurusan = Jurusan::all();
+
         return view('home', compact(
             'jadwal',
             'guru',

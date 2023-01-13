@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\Guru;
 use App\Http\Controllers\Controller;
+use App\Models\Kelas;
 use App\Providers\RouteServiceProvider;
-use App\User;
-use App\Guru;
-use App\Kelas;
+use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+
 class RegisterController extends Controller
 {
     /*
@@ -88,10 +89,10 @@ class RegisterController extends Controller
             }
         } else {
             return Validator::make($data, [
-                    'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-                    'password' => ['required', 'string', 'min:8', 'confirmed'],
-                    'role' => ['required'],
-                    'nomer' => ['required'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                'password' => ['required', 'string', 'min:8', 'confirmed'],
+                'role' => ['required'],
+                'nomer' => ['required'],
             ]);
         }
     }
@@ -100,7 +101,7 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \App\User
+     * @return \App\Models\User
      */
     protected function create(array $data)
     {
@@ -110,18 +111,18 @@ class RegisterController extends Controller
                 $guru = Guru::findorfail($val->id);
                 $countWali = Kelas::where('guru_id', $val->id)->count();
             }
-            
+
             $user = User::create([
                 'name' => $guru->nama_guru,
                 'email' => $data['email'],
                 'password' => Hash::make($data['password']),
             ]);
             $user->assignRole('guru');
-            if ($countWali == 1){
+            if ($countWali == 1) {
                 $user->assignRole('wali kelas');
             }
             $guru_data = [
-                'user_id' => $user->id
+                'user_id' => $user->id,
             ];
             $guru->update($guru_data);
 

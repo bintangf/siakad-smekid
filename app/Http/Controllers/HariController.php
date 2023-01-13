@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Hari;
+use App\Models\Hari;
 use Illuminate\Http\Request;
 
 class HariController extends Controller
@@ -41,7 +41,7 @@ class HariController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Hari  $hari
+     * @param  \App\Models\Hari  $hari
      * @return \Illuminate\Http\Response
      */
     public function show(Hari $hari)
@@ -52,7 +52,7 @@ class HariController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Hari  $hari
+     * @param  \App\Models\Hari  $hari
      * @return \Illuminate\Http\Response
      */
     public function edit(Hari $hari)
@@ -64,7 +64,7 @@ class HariController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Hari  $hari
+     * @param  \App\Models\Hari  $hari
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Hari $hari)
@@ -75,7 +75,7 @@ class HariController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Hari  $hari
+     * @param  \App\Models\Hari  $hari
      * @return \Illuminate\Http\Response
      */
     public function destroy(Hari $hari)

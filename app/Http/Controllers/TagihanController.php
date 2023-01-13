@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Kelas;
-use App\Siswa;
-use App\Tagihan;
-use App\detailTagihan;
-use Illuminate\Support\Str;
+use App\Models\detailTagihan;
+use App\Models\Kelas;
+use App\Models\Siswa;
+use App\Models\Tagihan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Str;
 
 class TagihanController extends Controller
 {
@@ -59,7 +59,7 @@ class TagihanController extends Controller
 
         Tagihan::updateOrCreate(
             [
-                'id' => $request->id
+                'id' => $request->id,
             ],
             [
                 'nama' => $request->nama,
@@ -74,7 +74,7 @@ class TagihanController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Tagihan  $tagihan
+     * @param  \App\Models\Tagihan  $tagihan
      * @return \Illuminate\Http\Response
      */
     public function show(Tagihan $tagihan)
@@ -85,7 +85,7 @@ class TagihanController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Tagihan  $tagihan
+     * @param  \App\Models\Tagihan  $tagihan
      * @return \Illuminate\Http\Response
      */
     public function edit(Tagihan $tagihan)
@@ -97,7 +97,7 @@ class TagihanController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Tagihan  $tagihan
+     * @param  \App\Models\Tagihan  $tagihan
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Tagihan $tagihan)
@@ -108,7 +108,7 @@ class TagihanController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Tagihan  $tagihan
+     * @param  \App\Models\Tagihan  $tagihan
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -147,25 +147,26 @@ class TagihanController extends Controller
     {
         $tagihan = Tagihan::where('id', $request->id)->get();
         foreach ($tagihan as $val) {
-            $newForm[] = array(
+            $newForm[] = [
                 'id' => $val->id,
                 'nama' => $val->nama,
                 'jumlah' => $val->jumlah,
                 'keterangan' => $val->keterangan,
-            );
+            ];
         }
+
         return response()->json($newForm);
     }
 
     public function tagih(Request $request)
     {
         if (Str::contains($request->siswa_id, 'kelas')) {
-            $siswas = Siswa::where('kelas_id', explode(".", $request->siswa_id)[1])->get();
+            $siswas = Siswa::where('kelas_id', explode('.', $request->siswa_id)[1])->get();
             foreach ($siswas as $siswa) {
                 detailTagihan::create(
                     [
                         'siswa_id' => $siswa->id,
-                        'tagihan_id' => $request->tagihan_id
+                        'tagihan_id' => $request->tagihan_id,
                     ]
                 );
             }
@@ -173,7 +174,7 @@ class TagihanController extends Controller
             detailTagihan::create(
                 [
                     'siswa_id' => $request->siswa_id,
-                    'tagihan_id' => $request->tagihan_id
+                    'tagihan_id' => $request->tagihan_id,
                 ]
             );
         }

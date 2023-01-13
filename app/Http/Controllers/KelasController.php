@@ -2,16 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Kelas;
-use App\Guru;
-use App\Jurusan;
-use App\Siswa;
-use App\Jadwal;
+use App\Models\Guru;
+use App\Models\Jadwal;
+use App\Models\Jurusan;
+use App\Models\Kelas;
+use App\Models\Siswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
-
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
 
 class KelasController extends Controller
 {
@@ -60,15 +57,15 @@ class KelasController extends Controller
                 'guru_id' => 'required|unique:kelas',
             ]);
         }
-        if( $request->guru_id_lama != null ){
+        if ($request->guru_id_lama != null) {
             $guruLama = Guru::find($request->guru_id_lama)->user;
-            if( $guruLama != null ){
+            if ($guruLama != null) {
                 $guruLama->removeRole('wali kelas');
             }
         }
         Kelas::updateOrCreate(
             [
-                'id' => $request->id
+                'id' => $request->id,
             ],
             [
                 'nama_kelas' => $request->nama_kelas,
@@ -76,14 +73,12 @@ class KelasController extends Controller
                 'guru_id' => $request->guru_id,
             ]
         );
-        if( $request->guru_id != null ){
+        if ($request->guru_id != null) {
             $guru = Guru::find($request->guru_id)->user;
-            if( $guru != null ){
+            if ($guru != null) {
                 $guru->assignRole('wali kelas');
             }
         }
-        
-        
 
         return redirect()->back()->with('success', 'Data kelas berhasil diperbarui!');
     }
@@ -91,7 +86,7 @@ class KelasController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Kelas  $kelas
+     * @param  \App\Models\Kelas  $kelas
      * @return \Illuminate\Http\Response
      */
     public function show(Kelas $kelas)
@@ -102,7 +97,7 @@ class KelasController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Kelas  $kelas
+     * @param  \App\Models\Kelas  $kelas
      * @return \Illuminate\Http\Response
      */
     public function edit(Kelas $kelas)
@@ -114,7 +109,7 @@ class KelasController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Kelas  $kelas
+     * @param  \App\Models\Kelas  $kelas
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Kelas $kelas)
@@ -125,7 +120,7 @@ class KelasController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Kelas  $kelas
+     * @param  \App\Models\Kelas  $kelas
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -140,6 +135,7 @@ class KelasController extends Controller
             Siswa::where('kelas_id', $kelas->id)->delete();
         }
         $kelas->delete();
+
         return redirect()->back()->with('warning', 'Data kelas berhasil dihapus! (Silahkan cek trash data kelas)');
     }
 
@@ -147,7 +143,8 @@ class KelasController extends Controller
     {
         $kelas = Kelas::onlyTrashed()->get();
         $gurus = Guru::OrderBy('nama_guru', 'asc')->get();
-        return view('admin.kelas.trash', compact('kelas','gurus'));
+
+        return view('admin.kelas.trash', compact('kelas', 'gurus'));
     }
 
     public function restore($id)
@@ -163,6 +160,7 @@ class KelasController extends Controller
             Siswa::withTrashed()->where('kelas_id', $kelas->id)->restore();
         }
         $kelas->restore();
+
         return redirect()->back()->with('info', 'Data kelas berhasil direstore! (Silahkan cek data kelas)');
     }
 
@@ -178,6 +176,7 @@ class KelasController extends Controller
             Siswa::withTrashed()->where('kelas_id', $kelas->id)->forceDelete();
         }
         $kelas->forceDelete();
+
         return redirect()->back()->with('success', 'Data kelas berhasil dihapus secara permanent');
     }
 
@@ -185,13 +184,14 @@ class KelasController extends Controller
     {
         $kelas = Kelas::where('id', $request->id)->get();
         foreach ($kelas as $val) {
-            $newForm[] = array(
+            $newForm[] = [
                 'id' => $val->id,
                 'nama' => $val->nama_kelas,
                 'jurusan_id' => $val->jurusan_id,
                 'guru_id' => $val->guru_id,
-            );
+            ];
         }
+
         return response()->json($newForm);
     }
 }
