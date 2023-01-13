@@ -14,11 +14,11 @@ class Jurusan extends Model
 
     public function mapels()
     {
-        return $this->hasMany('App\Mapel')->withTrashed();
+        return $this->hasMany(\App\Mapel::class)->withTrashed();
     }
 
     public function kelas()
     {
-        return $this->hasMany('App\Kelas')->withTrashed();
+        return $this->hasMany(\App\Kelas::class)->withTrashed();
     }
 }

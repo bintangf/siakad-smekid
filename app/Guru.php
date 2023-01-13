@@ -17,16 +17,16 @@ class Guru extends Model
 
     public function kelas()
     {
-        return $this->hasOne('App\Kelas')->withTrashed();
+        return $this->hasOne(\App\Kelas::class)->withTrashed();
     }
 
     public function user()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo(\App\User::class);
     }
 
     public function mapel()
     {
-        return $this->belongsToMany('App\Mapel')->withTrashed();
+        return $this->belongsToMany(\App\Mapel::class)->withTrashed();
     }
 }

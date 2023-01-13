@@ -14,16 +14,16 @@ class detailTagihan extends Model
 
     public function siswa()
     {
-        return $this->belongsTo('App\Siswa')->withTrashed();
+        return $this->belongsTo(\App\Siswa::class)->withTrashed();
     }
 
     public function tagihan()
     {
-        return $this->belongsTo('App\Tagihan')->withTrashed();
+        return $this->belongsTo(\App\Tagihan::class)->withTrashed();
     }
 
     public function pembayaran()
     {
-        return $this->hasMany('App\Pembayaran', 'detail_tagihan_id');
+        return $this->hasMany(\App\Pembayaran::class, 'detail_tagihan_id');
     }
 }

@@ -17,11 +17,11 @@ class Mapel extends Model
 
     public function jurusan()
     {
-        return $this->belongsTo('App\Jurusan');
+        return $this->belongsTo(\App\Jurusan::class);
     }
 
     public function guru()
     {
-        return $this->belongsToMany('App\Guru')->withTrashed();
+        return $this->belongsToMany(\App\Guru::class)->withTrashed();
     }
 }

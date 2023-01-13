@@ -17,17 +17,17 @@ class Siswa extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo(\App\User::class);
     }
 
     public function kelas()
     {
-        return $this->belongsTo('App\Kelas')->withTrashed();
+        return $this->belongsTo(\App\Kelas::class)->withTrashed();
     }
 
     public function detailTagihan()
     {
-        return $this->hasMany('App\detailTagihan', 'siswa_id');
+        return $this->hasMany(\App\detailTagihan::class, 'siswa_id');
     }
 
     public function nilai($id)

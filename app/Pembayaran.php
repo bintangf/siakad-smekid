@@ -14,6 +14,6 @@ class Pembayaran extends Model
 
     public function detailTagihan()
     {
-        return $this->belongsTo('App\detailTagihan');
+        return $this->belongsTo(\App\detailTagihan::class);
     }
 }

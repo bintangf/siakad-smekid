@@ -14,21 +14,21 @@ class Nilai extends Model
 
     public function siswa()
     {
-        return $this->belongsTo('App\Siswa')->withTrashed();
+        return $this->belongsTo(\App\Siswa::class)->withTrashed();
     }
 
     public function kelas()
     {
-        return $this->belongsTo('App\Kelas')->withTrashed();
+        return $this->belongsTo(\App\Kelas::class)->withTrashed();
     }
 
     public function guru()
     {
-        return $this->belongsTo('App\Guru')->withTrashed();
+        return $this->belongsTo(\App\Guru::class)->withTrashed();
     }
 
     public function mapel()
     {
-        return $this->belongsTo('App\Mapel')->withTrashed();
+        return $this->belongsTo(\App\Mapel::class)->withTrashed();
     }
 }
