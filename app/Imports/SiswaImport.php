@@ -2,8 +2,8 @@
 
 namespace App\Imports;
 
-use App\Kelas;
-use App\Siswa;
+use App\Models\Kelas;
+use App\Models\Siswa;
 use Maatwebsite\Excel\Concerns\ToModel;
 
 class SiswaImport implements ToModel

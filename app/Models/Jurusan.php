@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,11 +14,11 @@ class Jurusan extends Model
 
     public function mapels()
     {
-        return $this->hasMany(\App\Mapel::class)->withTrashed();
+        return $this->hasMany(\App\Models\Mapel::class)->withTrashed();
     }
 
     public function kelas()
     {
-        return $this->hasMany(\App\Kelas::class)->withTrashed();
+        return $this->hasMany(\App\Models\Kelas::class)->withTrashed();
     }
 }

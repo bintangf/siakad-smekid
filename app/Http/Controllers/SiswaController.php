@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Imports\SiswaImport;
-use App\Kelas;
-use App\Siswa;
+use App\Models\Kelas;
+use App\Models\Siswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Maatwebsite\Excel\Facades\Excel;
@@ -65,7 +65,7 @@ class SiswaController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Siswa  $siswa
+     * @param  \App\Models\Siswa  $siswa
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -79,7 +79,7 @@ class SiswaController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Siswa  $siswa
+     * @param  \App\Models\Siswa  $siswa
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -95,7 +95,7 @@ class SiswaController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Siswa  $siswa
+     * @param  \App\Models\Siswa  $siswa
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -131,7 +131,7 @@ class SiswaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Siswa  $siswa
+     * @param  \App\Models\Siswa  $siswa
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Guru;
-use App\Kelas;
-use App\User;
+use App\Models\Guru;
+use App\Models\Kelas;
+use App\Models\User;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Guru;
+use App\Models\Guru;
 use App\Imports\GuruImport;
-use App\Mapel;
+use App\Models\Mapel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Maatwebsite\Excel\Facades\Excel;
@@ -69,7 +69,7 @@ class GuruController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Guru  $guru
+     * @param  \App\Models\Guru  $guru
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -83,7 +83,7 @@ class GuruController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Guru  $guru
+     * @param  \App\Models\Guru  $guru
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -99,7 +99,7 @@ class GuruController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Guru  $guru
+     * @param  \App\Models\Guru  $guru
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -128,7 +128,7 @@ class GuruController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Guru  $guru
+     * @param  \App\Models\Guru  $guru
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Guru;
-use App\Hari;
-use App\Jadwal;
-use App\Kelas;
+use App\Models\Guru;
+use App\Models\Hari;
+use App\Models\Jadwal;
+use App\Models\Kelas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 
@@ -72,7 +72,7 @@ class JadwalController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Jadwal  $jadwal
+     * @param  \App\Models\Jadwal  $jadwal
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -87,7 +87,7 @@ class JadwalController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Jadwal  $jadwal
+     * @param  \App\Models\Jadwal  $jadwal
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -105,7 +105,7 @@ class JadwalController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Jadwal  $jadwal
+     * @param  \App\Models\Jadwal  $jadwal
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Jadwal $jadwal)
@@ -116,7 +116,7 @@ class JadwalController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Jadwal  $jadwal
+     * @param  \App\Models\Jadwal  $jadwal
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

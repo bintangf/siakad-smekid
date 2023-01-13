@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -17,16 +17,16 @@ class Guru extends Model
 
     public function kelas()
     {
-        return $this->hasOne(\App\Kelas::class)->withTrashed();
+        return $this->hasOne(\App\Models\Kelas::class)->withTrashed();
     }
 
     public function user()
     {
-        return $this->belongsTo(\App\User::class);
+        return $this->belongsTo(\App\Models\User::class);
     }
 
     public function mapel()
     {
-        return $this->belongsToMany(\App\Mapel::class)->withTrashed();
+        return $this->belongsToMany(\App\Models\Mapel::class)->withTrashed();
     }
 }

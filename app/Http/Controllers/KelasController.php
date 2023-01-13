@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Guru;
-use App\Jadwal;
-use App\Jurusan;
-use App\Kelas;
-use App\Siswa;
+use App\Models\Guru;
+use App\Models\Jadwal;
+use App\Models\Jurusan;
+use App\Models\Kelas;
+use App\Models\Siswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 
@@ -86,7 +86,7 @@ class KelasController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Kelas  $kelas
+     * @param  \App\Models\Kelas  $kelas
      * @return \Illuminate\Http\Response
      */
     public function show(Kelas $kelas)
@@ -97,7 +97,7 @@ class KelasController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Kelas  $kelas
+     * @param  \App\Models\Kelas  $kelas
      * @return \Illuminate\Http\Response
      */
     public function edit(Kelas $kelas)
@@ -109,7 +109,7 @@ class KelasController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Kelas  $kelas
+     * @param  \App\Models\Kelas  $kelas
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Kelas $kelas)
@@ -120,7 +120,7 @@ class KelasController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Kelas  $kelas
+     * @param  \App\Models\Kelas  $kelas
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

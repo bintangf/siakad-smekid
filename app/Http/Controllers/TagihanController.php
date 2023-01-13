@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\detailTagihan;
-use App\Kelas;
-use App\Siswa;
-use App\Tagihan;
+use App\Models\detailTagihan;
+use App\Models\Kelas;
+use App\Models\Siswa;
+use App\Models\Tagihan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Str;
@@ -74,7 +74,7 @@ class TagihanController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Tagihan  $tagihan
+     * @param  \App\Models\Tagihan  $tagihan
      * @return \Illuminate\Http\Response
      */
     public function show(Tagihan $tagihan)
@@ -85,7 +85,7 @@ class TagihanController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Tagihan  $tagihan
+     * @param  \App\Models\Tagihan  $tagihan
      * @return \Illuminate\Http\Response
      */
     public function edit(Tagihan $tagihan)
@@ -97,7 +97,7 @@ class TagihanController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Tagihan  $tagihan
+     * @param  \App\Models\Tagihan  $tagihan
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Tagihan $tagihan)
@@ -108,7 +108,7 @@ class TagihanController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Tagihan  $tagihan
+     * @param  \App\Models\Tagihan  $tagihan
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,6 +14,6 @@ class Pembayaran extends Model
 
     public function detailTagihan()
     {
-        return $this->belongsTo(\App\detailTagihan::class);
+        return $this->belongsTo(\App\Models\detailTagihan::class);
     }
 }

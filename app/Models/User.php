@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -42,11 +42,11 @@ class User extends Authenticatable
 
     public function guru()
     {
-        return $this->hasOne(\App\Guru::class);
+        return $this->hasOne(\App\Models\Guru::class);
     }
 
     public function siswa()
     {
-        return $this->hasOne(\App\Siswa::class);
+        return $this->hasOne(\App\Models\Siswa::class);
     }
 }

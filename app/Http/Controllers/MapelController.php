@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Jurusan;
-use App\Mapel;
+use App\Models\Jurusan;
+use App\Models\Mapel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 

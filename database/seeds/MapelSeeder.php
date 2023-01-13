@@ -1,6 +1,6 @@
 <?php
 
-use App\Mapel;
+use App\Models\Mapel;
 use Illuminate\Database\Seeder;
 
 class MapelSeeder extends Seeder

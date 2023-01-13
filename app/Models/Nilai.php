@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,21 +14,21 @@ class Nilai extends Model
 
     public function siswa()
     {
-        return $this->belongsTo(\App\Siswa::class)->withTrashed();
+        return $this->belongsTo(\App\Models\Siswa::class)->withTrashed();
     }
 
     public function kelas()
     {
-        return $this->belongsTo(\App\Kelas::class)->withTrashed();
+        return $this->belongsTo(\App\Models\Kelas::class)->withTrashed();
     }
 
     public function guru()
     {
-        return $this->belongsTo(\App\Guru::class)->withTrashed();
+        return $this->belongsTo(\App\Models\Guru::class)->withTrashed();
     }
 
     public function mapel()
     {
-        return $this->belongsTo(\App\Mapel::class)->withTrashed();
+        return $this->belongsTo(\App\Models\Mapel::class)->withTrashed();
     }
 }

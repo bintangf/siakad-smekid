@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -17,11 +17,11 @@ class Mapel extends Model
 
     public function jurusan()
     {
-        return $this->belongsTo(\App\Jurusan::class);
+        return $this->belongsTo(\App\Models\Jurusan::class);
     }
 
     public function guru()
     {
-        return $this->belongsToMany(\App\Guru::class)->withTrashed();
+        return $this->belongsToMany(\App\Models\Guru::class)->withTrashed();
     }
 }

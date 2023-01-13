@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -17,21 +17,21 @@ class Jadwal extends Model
 
     public function hari()
     {
-        return $this->belongsTo(\App\Hari::class);
+        return $this->belongsTo(\App\Models\Hari::class);
     }
 
     public function kelas()
     {
-        return $this->belongsTo(\App\Kelas::class)->withTrashed();
+        return $this->belongsTo(\App\Models\Kelas::class)->withTrashed();
     }
 
     public function mapel()
     {
-        return $this->belongsTo(\App\Mapel::class)->withTrashed();
+        return $this->belongsTo(\App\Models\Mapel::class)->withTrashed();
     }
 
     public function guru()
     {
-        return $this->belongsTo(\App\Guru::class)->withTrashed();
+        return $this->belongsTo(\App\Models\Guru::class)->withTrashed();
     }
 }

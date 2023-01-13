@@ -2,8 +2,8 @@
 
 namespace App\Imports;
 
-use App\Guru;
-use App\Mapel;
+use App\Models\Guru;
+use App\Models\Mapel;
 use Maatwebsite\Excel\Concerns\ToModel;
 
 class GuruImport implements ToModel

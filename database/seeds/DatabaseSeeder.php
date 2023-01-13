@@ -1,6 +1,6 @@
 <?php
 
-use App\Tagihan;
+use App\Models\Tagihan;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder

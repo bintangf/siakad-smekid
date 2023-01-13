@@ -1,6 +1,6 @@
 <?php
 
-use App\Hari;
+use App\Models\Hari;
 use Illuminate\Database\Seeder;
 
 class HariTableSeeder extends Seeder

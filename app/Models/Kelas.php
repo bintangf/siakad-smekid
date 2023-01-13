@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -17,16 +17,16 @@ class Kelas extends Model
 
     public function jurusan()
     {
-        return $this->belongsTo(\App\Jurusan::class);
+        return $this->belongsTo(\App\Models\Jurusan::class);
     }
 
     public function guru()
     {
-        return $this->belongsTo(\App\Guru::class)->withTrashed();
+        return $this->belongsTo(\App\Models\Guru::class)->withTrashed();
     }
 
     public function siswa()
     {
-        return $this->hasMany(\App\Siswa::class, 'kelas_id')->withTrashed();
+        return $this->hasMany(\App\Models\Siswa::class, 'kelas_id')->withTrashed();
     }
 }
