@@ -2,25 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
-use PDF;
-use App\Nilai;
-use App\Kelas;
 use App\Guru;
 use App\Jadwal;
+use App\Kelas;
 use App\Mapel;
+use App\Nilai;
 use App\Siswa;
+use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
-use Illuminate\Support\Str;
+use PDF;
 
 class NilaiController extends Controller
 {
-
     public function index()
     {
         $jadwal = Jadwal::where('guru_id', Auth::user()->guru->id)->orderBy('kelas_id')->get();
         $kelas = $jadwal->groupBy(['kelas_id', 'mapel_id']);
+
         return view('nilai.index', compact('kelas'));
     }
 
@@ -31,6 +30,7 @@ class NilaiController extends Controller
         $kelas = Kelas::findorfail($id[0]);
         $mapel = Mapel::findorfail($id[1]);
         $siswas = Siswa::where('kelas_id', $id[0])->get();
+
         return view('nilai.show', compact('guru', 'kelas', 'siswas', 'mapel'));
     }
 
@@ -42,7 +42,7 @@ class NilaiController extends Controller
         if ($cekJadwal >= 1) {
             Nilai::updateOrCreate(
                 [
-                    'id' => $request->id
+                    'id' => $request->id,
                 ],
                 [
                     'siswa_id' => $request->siswa_id,
@@ -56,6 +56,7 @@ class NilaiController extends Controller
                     'pat' => $request->pat,
                 ]
             );
+
             return response()->json(['success' => 'Nilai siswa berhasil ditambahkan!']);
         } else {
             return response()->json(['error' => 'Maaf guru ini tidak mengajar kelas ini!']);
@@ -69,24 +70,25 @@ class NilaiController extends Controller
         ->whereNotNull('ketrampilan')
         ->whereNotNull('uts')
         ->whereNotNull('pat')->count();
-        if($cek == 1){
+        if ($cek == 1) {
             $acc = Nilai::findorfail($request->id)->update($request->all());
+
             return response()->json(['success' => 'Nilai berhasil diacc!']);
-        }else{
+        } else {
             return response()->json(['error' => 'Nilai belum terisi semua!'], 412);
         }
     }
 
     public function view()
     {
-        if(auth()->user()->can('master') == true){
+        if (auth()->user()->can('master') == true) {
             $jadwal = Nilai::orderBy('kelas_id')->get();
-        }elseif(auth()->user()->hasRole('wali kelas') == true){
+        } elseif (auth()->user()->hasRole('wali kelas') == true) {
             $wali = Kelas::where('guru_id', Auth::user()->guru->id)->first();
             $jadwal = Nilai::where('kelas_id', $wali->id)->get();
-            $jadwal2 = Nilai::where('guru_id',  Auth::user()->guru->id)->get();
+            $jadwal2 = Nilai::where('guru_id', Auth::user()->guru->id)->get();
             $jadwal = $jadwal2->merge($jadwal);
-        }else{
+        } else {
             $jadwal = Nilai::where('guru_id', Auth::user()->guru->id)->orderBy('kelas_id')->get();
         }
         $kelas = $jadwal->groupBy(['tahun_semester', 'kelas_id', 'mapel_id']);
@@ -102,16 +104,16 @@ class NilaiController extends Controller
                 ->where('mapel_id', $id[2])
                 ->where('tahun_semester', $id[3])
                 ->get();
-                
+
         return view('nilai.viewDetail', compact('nilai'));
     }
 
     public function rapor()
     {
-        if(auth()->user()->can('master') == true){
+        if (auth()->user()->can('master') == true) {
             $kelas = Nilai::get();
             $kelas = $kelas->groupBy(['kelas_id', 'tahun_semester']);
-        }else{
+        } else {
             $kelas = Nilai::where('guru_id', Auth::user()->guru->id)->get();
             $kelas = $kelas->groupBy(['kelas_id', 'tahun_semester']);
         }
@@ -126,6 +128,7 @@ class NilaiController extends Controller
         $siswa = Nilai::orderBy('siswa_id')->where('kelas_id', $id[0])->where('tahun_semester', $id[1])->get();
         $siswa = $siswa->groupBy(['siswa_id']);
         $tahun_semester = $id[1];
+
         return view('nilai.rapor.show', compact('kelas', 'siswa', 'tahun_semester'));
     }
 
@@ -135,6 +138,7 @@ class NilaiController extends Controller
         $siswa = Siswa::findorfail($id);
         $kelas = Kelas::findorfail($siswa->kelas_id);
         $nilai = Nilai::orderBy('mapel_id')->where('kelas_id', $kelas->id)->where('siswa_id', $siswa->id)->get();
+
         return view('nilai.rapor.detail', compact('nilai', 'siswa', 'kelas'));
     }
 
@@ -147,10 +151,11 @@ class NilaiController extends Controller
         $data = [
             'siswa' => $siswa,
             'kelas' => $kelas,
-            'nilai' => $nilai
+            'nilai' => $nilai,
         ];
-        $html = view('nilai.rapor.export',$data);
+        $html = view('nilai.rapor.export', $data);
         $pdf = PDF::loadHtml($html);
+
         return $pdf->download('Raport '.$siswa->nama_siswa.' '.date('d-m-Y').'.pdf');
-    } 
+    }
 }

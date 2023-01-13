@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Jurusan;
+use App\Mapel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
-use App\Mapel;
-use App\Jurusan;
 
 class MapelController extends Controller
 {
-
     public function index()
     {
         $mapels = Mapel::get();
@@ -25,16 +24,16 @@ class MapelController extends Controller
         $request->validate([
             'nama_mapel' => 'required',
             'jurusan_id' => 'required',
-            'kelompok' => 'required'
+            'kelompok' => 'required',
         ]);
         $mapel = Mapel::updateOrCreate(
             [
-                'id' => $request->mapel_id
+                'id' => $request->mapel_id,
             ],
             [
                 'jurusan_id' => $request->jurusan_id,
                 'nama_mapel' => $request->nama_mapel,
-                'kelompok'   => $request->kelompok,
+                'kelompok' => $request->kelompok,
             ]
         );
 
@@ -51,6 +50,7 @@ class MapelController extends Controller
         $id = Crypt::decrypt($id);
         $mapels = Mapel::findorfail($id);
         $jurusans = Jurusan::all();
+
         return view('admin.mapel.edit', compact('mapels', 'jurusans'));
     }
 
@@ -62,12 +62,14 @@ class MapelController extends Controller
             $guru = Guru::where('mapel_id', $mapels->id)->delete();
         }*/
         $mapels->delete();
+
         return back()->with('warning', 'Data mapel berhasil dihapus! (Silahkan cek trash data mapel)');
     }
 
     public function trash()
     {
         $mapels = Mapel::onlyTrashed()->get();
+
         return view('admin.mapel.trash', compact('mapels'));
     }
 
@@ -80,6 +82,7 @@ class MapelController extends Controller
             $guru = Guru::withTrashed()->where('mapel_id', $mapels->id)->restore();
         }*/
         $mapels->restore();
+
         return back()->with('info', 'Data mapel berhasil direstore! (Silahkan cek data mapel)');
     }
 
@@ -91,6 +94,7 @@ class MapelController extends Controller
             $guru = Guru::withTrashed()->where('mapel_id', $mapels->id)->forceDelete();
         }*/
         $mapels->forceDelete();
+
         return back()->with('success', 'Data mapel berhasil dihapus secara permanent');
     }
 }

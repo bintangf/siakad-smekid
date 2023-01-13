@@ -12,13 +12,13 @@ class JurusansTableSeeder extends Seeder
      */
     public function run()
     {
-		Jurusan::create([
+        Jurusan::create([
             'nama' => 'Teknik Komputer dan Informatika',
         ]);
-		Jurusan::create([
+        Jurusan::create([
             'nama' => 'Bisnis daring dan Pemasaran serta Otomatisasi',
         ]);
-		Jurusan::create([
+        Jurusan::create([
             'nama' => 'Tata Kelola Perkantoran',
         ]);
     }

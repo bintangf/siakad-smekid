@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\detailTagihan;
 use App\Kelas;
 use App\Siswa;
 use App\Tagihan;
-use App\detailTagihan;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Str;
 
 class TagihanController extends Controller
 {
@@ -59,7 +59,7 @@ class TagihanController extends Controller
 
         Tagihan::updateOrCreate(
             [
-                'id' => $request->id
+                'id' => $request->id,
             ],
             [
                 'nama' => $request->nama,
@@ -147,25 +147,26 @@ class TagihanController extends Controller
     {
         $tagihan = Tagihan::where('id', $request->id)->get();
         foreach ($tagihan as $val) {
-            $newForm[] = array(
+            $newForm[] = [
                 'id' => $val->id,
                 'nama' => $val->nama,
                 'jumlah' => $val->jumlah,
                 'keterangan' => $val->keterangan,
-            );
+            ];
         }
+
         return response()->json($newForm);
     }
 
     public function tagih(Request $request)
     {
         if (Str::contains($request->siswa_id, 'kelas')) {
-            $siswas = Siswa::where('kelas_id', explode(".", $request->siswa_id)[1])->get();
+            $siswas = Siswa::where('kelas_id', explode('.', $request->siswa_id)[1])->get();
             foreach ($siswas as $siswa) {
                 detailTagihan::create(
                     [
                         'siswa_id' => $siswa->id,
-                        'tagihan_id' => $request->tagihan_id
+                        'tagihan_id' => $request->tagihan_id,
                     ]
                 );
             }
@@ -173,7 +174,7 @@ class TagihanController extends Controller
             detailTagihan::create(
                 [
                     'siswa_id' => $request->siswa_id,
-                    'tagihan_id' => $request->tagihan_id
+                    'tagihan_id' => $request->tagihan_id,
                 ]
             );
         }

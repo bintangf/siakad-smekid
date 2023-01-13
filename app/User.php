@@ -2,19 +2,17 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
     use Notifiable;
     use HasRoles;
     use SoftDeletes;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -46,6 +44,7 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\Guru');
     }
+
     public function siswa()
     {
         return $this->hasOne('App\Siswa');

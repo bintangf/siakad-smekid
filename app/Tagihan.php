@@ -10,6 +10,8 @@ class Tagihan extends Model
     use SoftDeletes;
 
     protected $table = 'tagihans';
-    protected $primarykey ='id';
+
+    protected $primarykey = 'id';
+
     protected $fillable = ['nama', 'jumlah', 'keterangan'];
 }

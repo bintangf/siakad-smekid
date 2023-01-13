@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Jadwal;
-use App\Hari;
-use App\Kelas;
 use App\Guru;
-use App\Mapel;
+use App\Hari;
+use App\Jadwal;
+use App\Kelas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 
@@ -22,6 +21,7 @@ class JadwalController extends Controller
         $haris = Hari::all();
         $kelas = Kelas::OrderBy('nama_kelas', 'asc')->get();
         $gurus = Guru::all();
+
         return view('admin.jadwal.index', compact('haris', 'kelas', 'gurus'));
     }
 
@@ -54,7 +54,7 @@ class JadwalController extends Controller
 
         Jadwal::updateOrCreate(
             [
-                'id' => $request->jadwal_id
+                'id' => $request->jadwal_id,
             ],
             [
                 'hari_id' => $request->hari_id,
@@ -80,6 +80,7 @@ class JadwalController extends Controller
         $id = Crypt::decrypt($id);
         $kelas = Kelas::findorfail($id);
         $jadwals = Jadwal::OrderBy('hari_id', 'asc')->OrderBy('jam_mulai', 'asc')->where('kelas_id', $id)->get();
+
         return view('admin.jadwal.show', compact('jadwals', 'kelas'));
     }
 
@@ -96,6 +97,7 @@ class JadwalController extends Controller
         $haris = Hari::all();
         $kelas = Kelas::all();
         $gurus = Guru::all();
+
         return view('admin.jadwal.edit', compact('jadwal', 'haris', 'kelas', 'gurus'));
     }
 
@@ -128,6 +130,7 @@ class JadwalController extends Controller
     public function trash()
     {
         $jadwals = Jadwal::onlyTrashed()->get();
+
         return view('admin.jadwal.trash', compact('jadwals'));
     }
 
@@ -136,6 +139,7 @@ class JadwalController extends Controller
         $id = Crypt::decrypt($id);
         $jadwal = Jadwal::withTrashed()->findorfail($id);
         $jadwal->restore();
+
         return redirect()->back()->with('info', 'Data jadwal berhasil direstore! (Silahkan cek data jadwal)');
     }
 
@@ -143,6 +147,7 @@ class JadwalController extends Controller
     {
         $jadwal = Jadwal::withTrashed()->findorfail($id);
         $jadwal->forceDelete();
+
         return redirect()->back()->with('success', 'Data jadwal berhasil dihapus secara permanent');
     }
 
@@ -150,15 +155,16 @@ class JadwalController extends Controller
     {
         $jadwal = Jadwal::OrderBy('hari_id', 'asc')->OrderBy('jam_mulai', 'asc')->where('kelas_id', $request->id)->get();
         foreach ($jadwal as $val) {
-            $newForm[] = array(
+            $newForm[] = [
                 'hari' => $val->hari->nama_hari,
                 'mapel' => $val->mapel->nama_mapel,
                 'kelas' => $val->kelas->nama_kelas,
                 'guru' => $val->guru->nama_guru,
                 'jam_mulai' => date('H:i', strtotime($val->jam_mulai)),
                 'jam_selesai' => date('H:i', strtotime($val->jam_selesai)),
-            );
+            ];
         }
+
         return response()->json($newForm);
     }
 }

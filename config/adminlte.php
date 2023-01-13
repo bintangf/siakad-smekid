@@ -238,140 +238,140 @@ return [
         ],
         [
             'text' => 'Dashboard',
-            'url'  => '/home',
+            'url' => '/home',
             'icon' => 'fas fa-fw fa-home',
         ],
         [
-            'text'    => 'Master Data',
-            'icon'    => 'fas fa-fw fa-edit',
-            'can'     => 'master',
+            'text' => 'Master Data',
+            'icon' => 'fas fa-fw fa-edit',
+            'can' => 'master',
             'submenu' => [
                 [
                     'text' => 'Data Jadwal',
-                    'url'  => 'jadwal',
+                    'url' => 'jadwal',
                     'icon' => 'fas fa-fw fa-calendar-alt',
-                    'active' => ['jadwal*']
+                    'active' => ['jadwal*'],
                 ],
                 [
                     'text' => 'Data Guru',
-                    'url'  => 'guru',
+                    'url' => 'guru',
                     'icon' => 'fas fa-fw fa-users',
-                    'active' => ['guru*']
+                    'active' => ['guru*'],
                 ],
                 [
                     'text' => 'Data Kelas',
-                    'url'  => 'kelas',
+                    'url' => 'kelas',
                     'icon' => 'fas fa-fw fa-home',
                 ],
                 [
                     'text' => 'Data Siswa',
-                    'url'  => 'siswa',
+                    'url' => 'siswa',
                     'icon' => 'fas fa-fw fa-users',
-                    'active' => ['siswa*']
+                    'active' => ['siswa*'],
                 ],
                 [
                     'text' => 'Data Mata Pelajaran',
-                    'url'  => 'mapel',
+                    'url' => 'mapel',
                     'icon' => 'fas fa-fw fa-book',
                 ],
                 [
                     'text' => 'Data User',
-                    'url'  => 'user',
+                    'url' => 'user',
                     'icon' => 'fas fa-fw fa-user-plus',
-                    'active' => ['user*']
+                    'active' => ['user*'],
                 ],
             ],
         ],
         [
-            'text'    => 'View Trash',
-            'icon'    => 'fas fa-fw fa-recycle',
-            'can'     => 'trash',
+            'text' => 'View Trash',
+            'icon' => 'fas fa-fw fa-recycle',
+            'can' => 'trash',
             'submenu' => [
                 [
                     'text' => 'Trash Jadwal',
-                    'url'  => 'jadwal/trash',
+                    'url' => 'jadwal/trash',
                     'icon' => 'fas fa-fw fa-calendar-alt',
                 ],
                 [
                     'text' => 'Trash Guru',
-                    'url'  => 'guru/trash',
+                    'url' => 'guru/trash',
                     'icon' => 'fas fa-fw fa-users',
                 ],
                 [
                     'text' => 'Trash Kelas',
-                    'url'  => 'kelas/trash',
+                    'url' => 'kelas/trash',
                     'icon' => 'fas fa-fw fa-home',
                 ],
                 [
                     'text' => 'Trash Siswa',
-                    'url'  => 'siswa/trash',
+                    'url' => 'siswa/trash',
                     'icon' => 'fas fa-fw fa-users',
                 ],
                 [
                     'text' => 'Trash Mata Pelajaran',
-                    'url'  => 'mapel/trash',
+                    'url' => 'mapel/trash',
                     'icon' => 'fas fa-fw fa-book',
                 ],
                 [
                     'text' => 'Trash Tagihan',
-                    'url'  => 'tagihan/trash',
+                    'url' => 'tagihan/trash',
                     'icon' => 'fas fa-fw fa-file-invoice',
                 ],
                 [
                     'text' => 'Trash User',
-                    'url'  => 'user/trash',
+                    'url' => 'user/trash',
                     'icon' => 'fas fa-fw fa-user-plus',
                 ],
             ],
         ],
         [
-            'text'    => 'Data Nilai',
-            'icon'    => 'fas fa-fw fa-database',
-            'can'     => 'lihat nilai',
+            'text' => 'Data Nilai',
+            'icon' => 'fas fa-fw fa-database',
+            'can' => 'lihat nilai',
             'submenu' => [
                 [
                     'text' => 'Lihat Nilai',
-                    'url'  => 'nilai/view',
+                    'url' => 'nilai/view',
                     'icon' => 'fas fa-fw fa-file',
-                    'can'  => 'lihat nilai',
+                    'can' => 'lihat nilai',
                 ],
                 [
                     'text' => 'Input Nilai',
-                    'url'  => 'nilai',
+                    'url' => 'nilai',
                     'icon' => 'fas fa-fw fa-file-signature',
-                    'can'  => 'input nilai',
+                    'can' => 'input nilai',
                 ],
                 [
                     'text' => 'Rapor',
-                    'url'  => 'nilai/rapor',
+                    'url' => 'nilai/rapor',
                     'icon' => 'fas fa-fw fa-file-export',
-                    'can'  => 'rapor',
+                    'can' => 'rapor',
                 ],
             ],
         ],
         [
-            'text'    => 'Keuangan',
-            'icon'    => 'fas fa-fw fa-money-bill',
-            'can'     => 'keuangan',
+            'text' => 'Keuangan',
+            'icon' => 'fas fa-fw fa-money-bill',
+            'can' => 'keuangan',
             'submenu' => [
                 [
                     'text' => 'Tagihan',
-                    'url'  => 'tagihan',
+                    'url' => 'tagihan',
                     'icon' => 'fas fa-fw fa-file-invoice',
-                    'can'  => 'keuangan',
+                    'can' => 'keuangan',
                 ],
                 [
                     'text' => 'Pembayaran',
-                    'url'  => 'pembayaran',
+                    'url' => 'pembayaran',
                     'icon' => 'fas fa-fw fa-cash-register',
-                    'can'  => 'keuangan',
-                ]
+                    'can' => 'keuangan',
+                ],
             ],
         ],
         ['header' => 'Setting Akun'],
         [
             'text' => 'profile',
-            'url'  => 'profile',
+            'url' => 'profile',
             'icon' => 'fas fa-fw fa-user',
         ],
 
@@ -410,7 +410,7 @@ return [
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Plugins-Configuration
     |
     */
-    
+
     'plugins' => [
         'Datatables' => [
             'active' => false,
@@ -458,12 +458,12 @@ return [
                 [
                     'type' => 'js',
                     'asset' => false,
-                    'location' =>Config('app.asset').'vendor/datatables-plugins/buttons/js/buttons.html5.min.js',
+                    'location' => Config('app.asset').'vendor/datatables-plugins/buttons/js/buttons.html5.min.js',
                 ],
                 [
                     'type' => 'js',
                     'asset' => false,
-                    'location' =>Config('app.asset').'vendor/datatables-plugins/buttons/js/buttons.bootstrap4.min.js',
+                    'location' => Config('app.asset').'vendor/datatables-plugins/buttons/js/buttons.bootstrap4.min.js',
                 ],
                 [
                     'type' => 'css',

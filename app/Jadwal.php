@@ -7,29 +7,31 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Jadwal extends Model
 {
-  use SoftDeletes;
+    use SoftDeletes;
 
-  protected $table = 'jadwal';
-  protected $primarykey ='id';
-  protected $fillable = ['hari_id', 'kelas_id', 'mapel_id', 'guru_id', 'jam_mulai', 'jam_selesai', 'ruang_id'];
+    protected $table = 'jadwal';
 
-  public function hari()
-  {
-    return $this->belongsTo('App\Hari');
-  }
+    protected $primarykey = 'id';
 
-  public function kelas()
-  {
-    return $this->belongsTo('App\Kelas')->withTrashed();
-  }
+    protected $fillable = ['hari_id', 'kelas_id', 'mapel_id', 'guru_id', 'jam_mulai', 'jam_selesai', 'ruang_id'];
 
-  public function mapel()
-  {
-    return $this->belongsTo('App\Mapel')->withTrashed();
-  }
+    public function hari()
+    {
+        return $this->belongsTo('App\Hari');
+    }
 
-  public function guru()
-  {
-    return $this->belongsTo('App\Guru')->withTrashed();
-  }
+    public function kelas()
+    {
+        return $this->belongsTo('App\Kelas')->withTrashed();
+    }
+
+    public function mapel()
+    {
+        return $this->belongsTo('App\Mapel')->withTrashed();
+    }
+
+    public function guru()
+    {
+        return $this->belongsTo('App\Guru')->withTrashed();
+    }
 }

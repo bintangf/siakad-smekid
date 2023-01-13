@@ -12,29 +12,29 @@ class HariTableSeeder extends Seeder
      */
     public function run()
     {
-		Hari::create([
+        Hari::create([
             'id' => 1,
             'nama_hari' => 'Senin',
         ]);
-		Hari::create([
+        Hari::create([
             'id' => 2,
             'nama_hari' => 'Selasa',
         ]);
-		Hari::create([
+        Hari::create([
             'id' => 3,
             'nama_hari' => 'Rabu',
         ]);
-		Hari::create([
+        Hari::create([
             'id' => 4,
             'nama_hari' => 'Kamis',
         ]);
-		Hari::create([
+        Hari::create([
             'id' => 5,
             'nama_hari' => "Jum'at",
         ]);
-		Hari::create([
+        Hari::create([
             'id' => 6,
-            'nama_hari' => "Sabtu",
+            'nama_hari' => 'Sabtu',
         ]);
     }
 }

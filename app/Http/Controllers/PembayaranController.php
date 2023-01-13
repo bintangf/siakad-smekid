@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Pembayaran;
 use App\detailTagihan;
+use App\Pembayaran;
 use Illuminate\Http\Request;
 
 class PembayaranController extends Controller
@@ -16,6 +16,7 @@ class PembayaranController extends Controller
     public function index()
     {
         $detailTagihan = detailTagihan::all()->sortBy('keterangan');
+
         return view('admin.pembayaran.index', compact('detailTagihan'));
     }
 
@@ -45,25 +46,25 @@ class PembayaranController extends Controller
         $detailTagihan = detailTagihan::find($request->detail_tagihan_id);
         $totalTagihan = $detailTagihan->tagihan->jumlah - $detailTagihan->pembayaran->sum('jumlah');
 
-        if($request->jumlah > $totalTagihan){
-            return redirect()->back()->with('error', 'pembayaran melebihi tunggakan!'); 
-        }else{
+        if ($request->jumlah > $totalTagihan) {
+            return redirect()->back()->with('error', 'pembayaran melebihi tunggakan!');
+        } else {
             $bayar = Pembayaran::create([
                 'detail_tagihan_id' => $request->detail_tagihan_id,
                 'jumlah' => $request->jumlah,
                 'keterangan' => $request->keterangan,
             ]);
             $bayar->save();
-    
+
             $totalBayarAkhir = Pembayaran::where('detail_tagihan_id', $request->detail_tagihan_id)->sum('jumlah');
-            if($detailTagihan->tagihan->jumlah == $totalBayarAkhir){
+            if ($detailTagihan->tagihan->jumlah == $totalBayarAkhir) {
                 $detailTagihan->keterangan = 'lunas';
                 $detailTagihan->save();
+
                 return redirect()->back()->with('success', 'pembayaran lunas!');
-            }else{
+            } else {
                 return redirect()->back()->with('success', 'pembayaran berhasil, cek di histori!');
             }
-    
         }
     }
 
@@ -117,18 +118,19 @@ class PembayaranController extends Controller
         $pembayarans = Pembayaran::where('detail_tagihan_id', $request->id)->get();
 
         foreach ($pembayarans as $pembayaran) {
-            if(!$pembayaran->keterangan){
+            if (! $pembayaran->keterangan) {
                 $ket = '-';
-            }else{
+            } else {
                 $ket = $pembayaran->keterangan;
             }
-            
-            $newForm[] = array(
+
+            $newForm[] = [
                 'jumlah' => $pembayaran->jumlah,
                 'keterangan' => $ket,
-                'tanggal' => date("d M Y H:i:s", strtotime($pembayaran->created_at))
-            );
+                'tanggal' => date('d M Y H:i:s', strtotime($pembayaran->created_at)),
+            ];
         }
+
         return response()->json($newForm);
     }
 }

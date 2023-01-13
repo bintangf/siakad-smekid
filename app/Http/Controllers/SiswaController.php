@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Siswa;
-use App\Kelas;
-use Illuminate\Http\Request;
 use App\Imports\SiswaImport;
-use Maatwebsite\Excel\Facades\Excel;
+use App\Kelas;
+use App\Siswa;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SiswaController extends Controller
 {
@@ -19,6 +19,7 @@ class SiswaController extends Controller
     public function index()
     {
         $kelas = Kelas::OrderBy('nama_kelas', 'asc')->get();
+
         return view('admin.siswa.index', compact('kelas'));
     }
 
@@ -44,7 +45,7 @@ class SiswaController extends Controller
             'no_induk' => 'required|string|unique:siswa',
             'nama_siswa' => 'required',
             'jk' => 'required',
-            'kelas_id' => 'required'
+            'kelas_id' => 'required',
         ]);
 
         Siswa::create([
@@ -55,7 +56,7 @@ class SiswaController extends Controller
             'kelas_id' => $request->kelas_id,
             'telp' => $request->telp,
             'tmp_lahir' => $request->tmp_lahir,
-            'tgl_lahir' => $request->tgl_lahir
+            'tgl_lahir' => $request->tgl_lahir,
         ]);
 
         return redirect()->back()->with('success', 'Berhasil menambahkan data siswa baru!');
@@ -71,6 +72,7 @@ class SiswaController extends Controller
     {
         $id = Crypt::decrypt($id);
         $siswa = Siswa::findorfail($id);
+
         return view('admin.siswa.details', compact('siswa'));
     }
 
@@ -85,6 +87,7 @@ class SiswaController extends Controller
         $id = Crypt::decrypt($id);
         $siswa = Siswa::findorfail($id);
         $kelas = Kelas::all();
+
         return view('admin.siswa.edit', compact('siswa', 'kelas'));
     }
 
@@ -100,7 +103,7 @@ class SiswaController extends Controller
         $this->validate($request, [
             'nama_siswa' => 'required',
             'jk' => 'required',
-            'kelas_id' => 'required'
+            'kelas_id' => 'required',
         ]);
 
         $siswa = Siswa::findorfail($id);
@@ -141,14 +144,16 @@ class SiswaController extends Controller
             $user->delete();
             return redirect()->back()->with('warning', 'Data siswa berhasil dihapus! (Silahkan cek trash data siswa)');
         } else {*/
-            $siswa->delete();
-            return redirect()->back()->with('warning', 'Data siswa berhasil dihapus! (Silahkan cek trash data siswa)');
+        $siswa->delete();
+
+        return redirect()->back()->with('warning', 'Data siswa berhasil dihapus! (Silahkan cek trash data siswa)');
         /*}*/
     }
 
     public function trash()
     {
         $siswas = Siswa::onlyTrashed()->get();
+
         return view('admin.siswa.trash', compact('siswas'));
     }
 
@@ -163,8 +168,9 @@ class SiswaController extends Controller
             $user->restore();
             return redirect()->back()->with('info', 'Data siswa berhasil direstore! (Silahkan cek data siswa)');
         } else {*/
-            $siswa->restore();
-            return redirect()->back()->with('info', 'Data siswa berhasil direstore! (Silahkan cek data siswa)');
+        $siswa->restore();
+
+        return redirect()->back()->with('info', 'Data siswa berhasil direstore! (Silahkan cek data siswa)');
         /*}*/
     }
 
@@ -178,8 +184,9 @@ class SiswaController extends Controller
             $user->forceDelete();
             return redirect()->back()->with('success', 'Data siswa berhasil dihapus secara permanent');
         } else {*/
-            $siswa->forceDelete();
-            return redirect()->back()->with('success', 'Data siswa berhasil dihapus secara permanent');
+        $siswa->forceDelete();
+
+        return redirect()->back()->with('success', 'Data siswa berhasil dihapus secara permanent');
         /*}*/
     }
 
@@ -188,14 +195,15 @@ class SiswaController extends Controller
         $siswa = Siswa::OrderBy('nama_siswa', 'asc')->where('kelas_id', $request->id)->get();
 
         foreach ($siswa as $val) {
-            $newForm[] = array(
+            $newForm[] = [
                 'kelas' => $val->kelas->nama_kelas,
                 'siswa_id' => $val->id,
                 'no_induk' => $val->no_induk,
                 'nama_siswa' => $val->nama_siswa,
-                'jk' => $val->jk
-            );
+                'jk' => $val->jk,
+            ];
         }
+
         return response()->json($newForm);
     }
 
@@ -204,18 +212,20 @@ class SiswaController extends Controller
         $id = Crypt::decrypt($id);
         $siswas = Siswa::where('kelas_id', $id)->OrderBy('nama_siswa', 'asc')->get();
         $kelas = Kelas::findorfail($id);
+
         return view('admin.siswa.show', compact('siswas', 'kelas'));
     }
 
     public function import_excel(Request $request)
     {
         $this->validate($request, [
-            'file' => 'required|mimes:csv,xls,xlsx'
+            'file' => 'required|mimes:csv,xls,xlsx',
         ]);
         $file = $request->file('file');
-        $nama_file = rand() . $file->getClientOriginalName();
+        $nama_file = rand().$file->getClientOriginalName();
         $file->move('file_siswa', $nama_file);
-        Excel::import(new SiswaImport, public_path('/file_siswa/' . $nama_file));
+        Excel::import(new SiswaImport, public_path('/file_siswa/'.$nama_file));
+
         return redirect()->back()->with('success', 'Data Siswa Berhasil Diimport!');
     }
 }
